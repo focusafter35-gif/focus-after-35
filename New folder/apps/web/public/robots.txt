@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://focusafter35.com/sitemap.xml

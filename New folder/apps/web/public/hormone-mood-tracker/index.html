@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://focusafter35.com/hormone-mood-tracker">
+    
+    <!-- Static Meta Tags -->
+    <title>Free Hormone Mood Tracker | FocusAfter35</title>
+    <meta name="description" content="Track your mood based on your hormone phase. Free tool for women over 35.">
+    <meta property="og:title" content="FocusAfter35 - Free Hormone Health Tools for Women 35+">
+    <meta property="og:description" content="Free hormone health tools for women 35+. No signup required.">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-8938459943027377" crossorigin="anonymous"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0VFC2SSNE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q0VFC2SSNE');
+    </script>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading" style="
+      position: fixed;
+      inset: 0;
+      background-color: #0a0a0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    ">
+      <div style="
+        font-family: serif;
+        font-size: 1.5rem;
+        color: #c9a84c;
+        letter-spacing: 2px;
+        text-align: center;
+      ">
+        FocusAfter35
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading');
+        if (loadingScreen) {
+          loadingScreen.style.display = 'none';
+        }
+      });
+      
+      // Script to ensure any platform-injected branding badges are removed
+      (function() {
+        const removeBranding = () => {
+          const selectors = [
+            '.horizons-badge', 
+            '.hostinger-badge', 
+            '[id*="hostinger"]', 
+            '[class*="hostinger-badge"]',
+            '[class*="horizons-badge"]',
+            'a[href*="hostinger.com/horizons"]'
+          ];
+          selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+              if (el) {
+                el.style.display = 'none';
+                el.remove();
+              }
+            });
+          });
+        };
+        
+        // Run immediately, on load, and observe DOM for delayed dynamic injections
+        removeBranding();
+        window.addEventListener('DOMContentLoaded', removeBranding);
+        window.addEventListener('load', removeBranding);
+        setTimeout(removeBranding, 1000);
+        setTimeout(removeBranding, 3000);
+        
+        const observer = new MutationObserver(() => {
+          removeBranding();
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+  </body>
+</html>

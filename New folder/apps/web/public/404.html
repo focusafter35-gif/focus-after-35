@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Static Meta Tags -->
+    <title>FocusAfter35 - Free Hormone Health Tools for Women 35+</title>
+    <meta name="description" content="Free hormone cycle calculator, brain fog quiz, and perimenopause checker for women 35+. Science-backed. No signup required.">
+    <meta property="og:title" content="FocusAfter35 - Free Hormone Health Tools for Women 35+">
+    <meta property="og:description" content="Free hormone health tools for women 35+. No signup required.">
+    <link rel="canonical" href="https://focusafter35.com/">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0VFC2SSNE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q0VFC2SSNE');
+    </script>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading" style="
+      position: fixed;
+      inset: 0;
+      background-color: #0a0a0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    ">
+      <div style="
+        font-family: serif;
+        font-size: 1.5rem;
+        color: #c9a84c;
+        letter-spacing: 2px;
+        text-align: center;
+      ">
+        FocusAfter35
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading');
+        if (loadingScreen) {
+          loadingScreen.style.display = 'none';
+        }
+      });
+    </script>
+  </body>
+</html>

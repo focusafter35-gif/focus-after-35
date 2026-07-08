@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://focusafter35.com/cycle-calculator">
+    
+    <!-- Static Meta Tags -->
+    <title>Free Hormone Cycle Calculator | FocusAfter35</title>
+    <meta name="description" content="Calculate your hormone cycle phase free. No signup needed.">
+    <meta property="og:title" content="FocusAfter35 - Free Hormone Health Tools for Women 35+">
+    <meta property="og:description" content="Free hormone health tools for women 35+. No signup required.">
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Free Hormone Cycle Calculator",
+      "description": "Calculate your current hormone cycle phase and learn how to sync your lifestyle, diet, and exercise with your natural biological rhythms.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "url": "https://focusafter35.com/cycle-calculator"
+    }
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-8938459943027377" crossorigin="anonymous"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0VFC2SSNE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q0VFC2SSNE');
+    </script>
+  </head>
+  <body>
+    <!-- SEO Content (Hidden on load to prevent React hydration mismatch/flash) -->
+    <div id="seo-content" style="background-color: #0a0a0f; color: #e5e7eb; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; min-height: 100vh;">
+      <main style="max-width: 800px; margin: 0 auto;">
+        <h1 style="color: #c9a84c; font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: bold; letter-spacing: -0.02em;">Free Hormone Cycle Calculator</h1>
+        
+        <section style="margin-bottom: 2rem;">
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">Understanding your hormone cycle is the key to unlocking better energy, mood, and overall well-being. Our Free Hormone Cycle Calculator is specifically designed for women who want to track their natural rhythms and optimize their daily lives.</p>
+          
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">Throughout your menstrual cycle, fluctuating levels of estrogen, progesterone, and testosterone create four distinct phases: menstrual, follicular, ovulatory, and luteal. Each phase brings unique strengths and challenges. By using our calculator, you can easily pinpoint which phase you are currently in and anticipate upcoming hormonal shifts.</p>
+          
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">This powerful tool helps you align your diet, exercise routines, and work schedules with your body's natural biological clock—a practice known as cycle syncing. Whether you're trying to manage PMS symptoms, boost your productivity, or simply feel more in tune with your body, our calculator provides the insights you need.</p>
+        </section>
+
+        <section style="background-color: #111118; padding: 2rem; border-radius: 0.5rem; border: 1px solid #c9a84c40;">
+          <h2 style="color: #c9a84c; font-size: 1.5rem; margin-bottom: 1rem;">Calculate Your Phase Now</h2>
+          <p style="margin-bottom: 1.5rem;">It's completely free, requires no sign-up, and offers instant results. Start tracking your hormone cycle today to harness the power of your natural fluctuations and live a more balanced, energized life.</p>
+          <p style="font-weight: bold; color: #c9a84c;">Loading calculator experience...</p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading" style="
+      position: fixed;
+      inset: 0;
+      background-color: #0a0a0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    ">
+      <div style="
+        font-family: serif;
+        font-size: 1.5rem;
+        color: #c9a84c;
+        letter-spacing: 2px;
+        text-align: center;
+      ">
+        FocusAfter35
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading');
+        if (loadingScreen) {
+          loadingScreen.style.display = 'none';
+        }
+        const seoContent = document.getElementById('seo-content');
+        if (seoContent) {
+          seoContent.style.display = 'none';
+        }
+      });
+      
+      // Script to ensure any platform-injected branding badges are removed
+      (function() {
+        const removeBranding = () => {
+          const selectors = [
+            '.horizons-badge', 
+            '.hostinger-badge', 
+            '[id*="hostinger"]', 
+            '[class*="hostinger-badge"]',
+            '[class*="horizons-badge"]',
+            'a[href*="hostinger.com/horizons"]'
+          ];
+          selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+              if (el) {
+                el.style.display = 'none';
+                el.remove();
+              }
+            });
+          });
+        };
+        
+        // Run immediately, on load, and observe DOM for delayed dynamic injections
+        removeBranding();
+        window.addEventListener('DOMContentLoaded', removeBranding);
+        window.addEventListener('load', removeBranding);
+        setTimeout(removeBranding, 1000);
+        setTimeout(removeBranding, 3000);
+        
+        const observer = new MutationObserver(() => {
+          removeBranding();
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+  </body>
+</html>

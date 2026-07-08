@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://focusafter35.com/perimenopause-checker">
+    
+    <!-- Static Meta Tags -->
+    <title>Am I in Perimenopause? Free Checker | FocusAfter35</title>
+    <meta name="description" content="Find your perimenopause stage free. Instant results.">
+    <meta property="og:title" content="FocusAfter35 - Free Hormone Health Tools for Women 35+">
+    <meta property="og:description" content="Free hormone health tools for women 35+. No signup required.">
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Am I in Perimenopause? Free Checker",
+      "description": "A free assessment tool to help women identify the signs and symptoms of perimenopause based on their age and physical changes.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "url": "https://focusafter35.com/perimenopause-checker"
+    }
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-8938459943027377" crossorigin="anonymous"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0VFC2SSNE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q0VFC2SSNE');
+    </script>
+  </head>
+  <body>
+    <!-- SEO Content (Hidden on load to prevent React hydration mismatch/flash) -->
+    <div id="seo-content" style="background-color: #0a0a0f; color: #e5e7eb; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; min-height: 100vh;">
+      <main style="max-width: 800px; margin: 0 auto;">
+        <h1 style="color: #c9a84c; font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: bold; letter-spacing: -0.02em;">Am I in Perimenopause? Free Checker</h1>
+        
+        <section style="margin-bottom: 2rem;">
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">Navigating the transition into perimenopause can be confusing, especially when symptoms overlap with everyday stress and aging. If you're over 35 and noticing changes in your body, mood, or menstrual cycle, you might be wondering: 'Am I in perimenopause?'</p>
+          
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">Our Free Perimenopause Checker is a comprehensive tool designed to help you identify the early signs of this natural life stage. Perimenopause can begin years before your final period, bringing a host of symptoms such as irregular cycles, hot flashes, night sweats, unexplained weight gain, and mood swings.</p>
+          
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">Because these changes happen gradually, they are often dismissed or misdiagnosed. Our checker evaluates your specific symptoms and age to provide a clear indication of whether you might be entering the perimenopausal transition. Armed with this knowledge, you can have more informed conversations with your healthcare provider and start implementing proactive lifestyle changes.</p>
+        </section>
+
+        <section style="background-color: #111118; padding: 2rem; border-radius: 0.5rem; border: 1px solid #c9a84c40;">
+          <h2 style="color: #c9a84c; font-size: 1.5rem; margin-bottom: 1rem;">Check Your Symptoms</h2>
+          <p style="margin-bottom: 1.5rem;">Discover where you are on your hormonal journey with our instant, confidential, and free assessment tool. Take control of your health and find the support you need to thrive during perimenopause.</p>
+          <p style="font-weight: bold; color: #c9a84c;">Loading checker experience...</p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading" style="
+      position: fixed;
+      inset: 0;
+      background-color: #0a0a0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    ">
+      <div style="
+        font-family: serif;
+        font-size: 1.5rem;
+        color: #c9a84c;
+        letter-spacing: 2px;
+        text-align: center;
+      ">
+        FocusAfter35
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading');
+        if (loadingScreen) {
+          loadingScreen.style.display = 'none';
+        }
+        const seoContent = document.getElementById('seo-content');
+        if (seoContent) {
+          seoContent.style.display = 'none';
+        }
+      });
+      
+      // Script to ensure any platform-injected branding badges are removed
+      (function() {
+        const removeBranding = () => {
+          const selectors = [
+            '.horizons-badge', 
+            '.hostinger-badge', 
+            '[id*="hostinger"]', 
+            '[class*="hostinger-badge"]',
+            '[class*="horizons-badge"]',
+            'a[href*="hostinger.com/horizons"]'
+          ];
+          selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+              if (el) {
+                el.style.display = 'none';
+                el.remove();
+              }
+            });
+          });
+        };
+        
+        // Run immediately, on load, and observe DOM for delayed dynamic injections
+        removeBranding();
+        window.addEventListener('DOMContentLoaded', removeBranding);
+        window.addEventListener('load', removeBranding);
+        setTimeout(removeBranding, 1000);
+        setTimeout(removeBranding, 3000);
+        
+        const observer = new MutationObserver(() => {
+          removeBranding();
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+  </body>
+</html>
