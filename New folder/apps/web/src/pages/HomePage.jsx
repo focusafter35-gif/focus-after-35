@@ -83,7 +83,7 @@ const HomePage = memo(() => {
                 {/* Educational Links Section */}
                 <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-border overflow-visible">
                     <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-center">Learn About Your Hormones</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
                         <Link to="/why-brain-fog-after-35" className="group p-6 md:p-8 rounded-2xl bg-muted/30 border border-border hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 flex flex-col h-full">
                             <h3 className="font-medium text-lg mb-3 group-hover:text-primary transition-colors">Why Brain Fog?</h3>
                             <p className="text-sm md:text-base text-muted-foreground mt-auto">Understand the root causes of cognitive changes after 35.</p>
@@ -99,6 +99,10 @@ const HomePage = memo(() => {
                         <Link to="/estrogen-brain-connection" className="group p-6 md:p-8 rounded-2xl bg-muted/30 border border-border hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 flex flex-col h-full">
                             <h3 className="font-medium text-lg mb-3 group-hover:text-primary transition-colors">Estrogen & Brain</h3>
                             <p className="text-sm md:text-base text-muted-foreground mt-auto">Discover how estrogen fuels your cognitive engine.</p>
+                        </Link> 
+                                                <Link to="/perimenopause-at-35" className="group p-6 md:p-8 rounded-2xl bg-muted/30 border border-border hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 flex flex-col h-full">
+                            <h3 className="font-medium text-lg mb-3 group-hover:text-primary transition-colors">Perimenopause at 35?</h3>
+                            <p className="text-sm md:text-base text-muted-foreground mt-auto">New research on why symptoms may start earlier than you think.</p>
                         </Link>
                     </div>
                 </section>

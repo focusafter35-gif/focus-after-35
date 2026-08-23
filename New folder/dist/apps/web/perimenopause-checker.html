@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Critical Resource Hints & Preconnections -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  
+  <!-- Preload Critical Fonts -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+  </noscript>
+
+  <title>Am I in Perimenopause? Free Stage Checker | FocusAfter35</title>
+  <meta name="description" content="Find your perimenopause stage free. Early, mid, or late? Instant results, no signup needed.">
+  <link rel="canonical" href="https://focusafter35.com/perimenopause-checker">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Am I in Perimenopause? Free Stage Checker | FocusAfter35">
+  <meta property="og:description" content="Find your perimenopause stage free. Early, mid, or late? Instant results, no signup needed.">
+  <meta property="og:url" content="https://focusafter35.com/perimenopause-checker">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Am I in Perimenopause? Free Stage Checker | FocusAfter35">
+  <meta name="twitter:description" content="Find your perimenopause stage free. Early, mid, or late? Instant results, no signup needed.">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- Inline critical CSS for layout stability during initial load -->
+  <style>
+    body { margin: 0; font-family: "DM Sans", system-ui, -apple-system, sans-serif; background-color: #0a0a0a; color: #ededed; }
+    #root { display: flex; flex-direction: column; min-height: 100vh; }
+    .site-header { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    main { max-width: 800px; margin: 0 auto; padding: 2rem; }
+    h1 { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
+    p { font-size: 1.125rem; line-height: 1.6; color: #a0a0a0; }
+  </style>
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FocusAfter35",
+    "url": "https://focusafter35.com",
+    "description": "Premium women's hormone health tools and resources"
+  }
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Perimenopause Stage Checker</h1>
+    <p>Find out if you are in early, mid or late perimenopause with this free 5-question checker. Instant results, no signup required.</p>
+  </main>
+
+  <div id="root">
+    <!-- Static app shell for fast first paint before React hydrates -->
+    <header class="site-header" aria-hidden="true" style="opacity: 0.5; min-height: 64px;">
+      <nav style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <span style="font-weight: bold; font-size: 1.25rem;">FocusAfter35</span>
+      </nav>
+    </header>
+  </div>
+  
+  <script type="module" src="/src/main.jsx"></script>
+  
+  <!-- Deferred Third-Party Scripts -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0VFC2SSNE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Don't execute immediately, wait for idle to prevent blocking main thread
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        gtag('js', new Date());
+        gtag('config', 'G-Q0VFC2SSNE');
+      }, 2500);
+    });
+  </script>
+</body>
+</html>

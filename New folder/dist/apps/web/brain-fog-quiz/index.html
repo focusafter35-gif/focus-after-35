@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://focusafter35.com/brain-fog-quiz">
+    
+    <!-- Static Meta Tags -->
+    <title>Brain Fog Quiz for Women Over 35 — Free Assessment | FocusAfter35</title>
+    <meta name="description" content="Is your brain fog hormonal? Free 7-question quiz for women over 35.">
+    <meta property="og:title" content="FocusAfter35 - Free Hormone Health Tools for Women 35+">
+    <meta property="og:description" content="Free hormone health tools for women 35+. No signup required.">
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      "name": "Brain Fog Quiz for Women Over 35",
+      "description": "A free assessment tool to help women over 35 determine if their brain fog and cognitive symptoms are related to hormonal changes and perimenopause.",
+      "url": "https://focusafter35.com/brain-fog-quiz"
+    }
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-8938459943027377" crossorigin="anonymous"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0VFC2SSNE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q0VFC2SSNE');
+    </script>
+  </head>
+  <body>
+    <!-- SEO Content (Hidden on load to prevent React hydration mismatch/flash) -->
+    <div id="seo-content" style="background-color: #0a0a0f; color: #e5e7eb; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; min-height: 100vh;">
+      <main style="max-width: 800px; margin: 0 auto;">
+        <h1 style="color: #c9a84c; font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: bold; letter-spacing: -0.02em;">Brain Fog Quiz for Women Over 35</h1>
+        
+        <section style="margin-bottom: 2rem;">
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">Are you experiencing memory slips, difficulty concentrating, or a general sense of mental cloudiness? You're not alone. For many women over 35, these cognitive changes—often referred to as 'brain fog'—are a common but frequently misunderstood symptom of hormonal shifts during perimenopause.</p>
+          
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">As estrogen and progesterone levels begin to fluctuate, it can directly impact neurotransmitters in the brain, leading to reduced focus, mental fatigue, and forgetfulness. Our Brain Fog Quiz for Women Over 35 is specifically designed to help you understand whether your symptoms might be linked to these natural hormonal transitions rather than just stress or lack of sleep.</p>
+          
+          <p style="margin-bottom: 1rem; font-size: 1.125rem;">By answering a few simple questions about your daily experiences, sleep patterns, and cognitive challenges, you can gain valuable insights into your brain health. This free assessment provides personalized feedback and actionable steps to help you regain mental clarity.</p>
+        </section>
+
+        <section style="background-color: #111118; padding: 2rem; border-radius: 0.5rem; border: 1px solid #c9a84c40;">
+          <h2 style="color: #c9a84c; font-size: 1.5rem; margin-bottom: 1rem;">Take the Free Assessment</h2>
+          <p style="margin-bottom: 1.5rem;">Don't let brain fog hold you back from feeling like yourself. Take the quiz today to discover if your symptoms are hormonally driven and learn how to support your cognitive function through targeted lifestyle, nutrition, and wellness strategies tailored for women in their late 30s, 40s, and beyond.</p>
+          <p style="font-weight: bold; color: #c9a84c;">Loading quiz experience...</p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading" style="
+      position: fixed;
+      inset: 0;
+      background-color: #0a0a0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    ">
+      <div style="
+        font-family: serif;
+        font-size: 1.5rem;
+        color: #c9a84c;
+        letter-spacing: 2px;
+        text-align: center;
+      ">
+        FocusAfter35
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading');
+        if (loadingScreen) {
+          loadingScreen.style.display = 'none';
+        }
+        const seoContent = document.getElementById('seo-content');
+        if (seoContent) {
+          seoContent.style.display = 'none';
+        }
+      });
+      
+      // Script to ensure any platform-injected branding badges are removed
+      (function() {
+        const removeBranding = () => {
+          const selectors = [
+            '.horizons-badge', 
+            '.hostinger-badge', 
+            '[id*="hostinger"]', 
+            '[class*="hostinger-badge"]',
+            '[class*="horizons-badge"]',
+            'a[href*="hostinger.com/horizons"]'
+          ];
+          selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+              if (el) {
+                el.style.display = 'none';
+                el.remove();
+              }
+            });
+          });
+        };
+        
+        // Run immediately, on load, and observe DOM for delayed dynamic injections
+        removeBranding();
+        window.addEventListener('DOMContentLoaded', removeBranding);
+        window.addEventListener('load', removeBranding);
+        setTimeout(removeBranding, 1000);
+        setTimeout(removeBranding, 3000);
+        
+        const observer = new MutationObserver(() => {
+          removeBranding();
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+  </body>
+</html>
