@@ -8,6 +8,7 @@ const KEYS = {
   settings: 'rhythmai.settings',
   history: 'rhythmai.research_history',
   goals: 'rhythmai.goals',
+  projects: 'rhythmai.projects',
   energyLog: 'rhythmai.energy_log',
   crisisLog: 'rhythmai.crisis_log',
   eveningLog: 'rhythmai.evening_log',
@@ -49,7 +50,14 @@ export const storage = {
   },
 
   getSettings: () =>
-    read(KEYS.settings, { apiKey: '', tone: 'gentle', notifications: false, language: 'en', theme: 'platinum-pearl' }),
+    read(KEYS.settings, {
+      apiKey: '',
+      tone: 'gentle',
+      notifications: false,
+      language: 'en',
+      theme: 'platinum-pearl',
+      travelMode: false,
+    }),
   setSettings: (settings) => write(KEYS.settings, settings),
 
   getHistory: () => read(KEYS.history, []),
@@ -62,6 +70,10 @@ export const storage = {
   // ---- Goals (each: { id, title, why, steps: [{ id, text, done }], createdAt }) ----
   getGoals: () => read(KEYS.goals, []),
   setGoals: (goals) => write(KEYS.goals, goals),
+
+  // ---- Projects (each: { id, title, deadline, priority, tasks: [{ id, text, done }], createdAt }) ----
+  getProjects: () => read(KEYS.projects, []),
+  setProjects: (projects) => write(KEYS.projects, projects),
 
   // ---- Morning energy check-in: { [dateKey]: 'low' | 'medium' | 'high' } ----
   getEnergyLog: () => read(KEYS.energyLog, {}),
@@ -99,6 +111,7 @@ export const storage = {
     settings: { ...read(KEYS.settings, {}), apiKey: undefined },
     history: read(KEYS.history, []),
     goals: read(KEYS.goals, []),
+    projects: read(KEYS.projects, []),
     energyLog: read(KEYS.energyLog, {}),
     crisisLog: read(KEYS.crisisLog, {}),
     eveningLog: read(KEYS.eveningLog, []),

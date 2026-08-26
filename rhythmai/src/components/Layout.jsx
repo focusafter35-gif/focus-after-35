@@ -9,6 +9,7 @@ export default function Layout() {
     { to: '/', label: t('nav.today'), end: true },
     { to: '/goals', label: t('nav.goals') },
     { to: '/plan', label: t('nav.plan') },
+    { to: '/work', label: t('nav.work') },
     { to: '/research', label: t('nav.research') },
     { to: '/report', label: t('nav.report') },
     { to: '/settings', label: t('nav.settings') },

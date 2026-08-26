@@ -6,6 +6,7 @@ import GoalsPage from './pages/GoalsPage.jsx'
 import PlanPage from './pages/PlanPage.jsx'
 import ResearchPage from './pages/ResearchPage.jsx'
 import ReportPage from './pages/ReportPage.jsx'
+import WorkPage from './pages/WorkPage.jsx'
 import SettingsPage from './pages/SettingsPage.jsx'
 import { storage } from './lib/storage.js'
 
@@ -56,6 +57,14 @@ export default function App() {
           element={
             <RequireProfile>
               <ReportPage />
+            </RequireProfile>
+          }
+        />
+        <Route
+          path="/work"
+          element={
+            <RequireProfile>
+              <WorkPage />
             </RequireProfile>
           }
         />

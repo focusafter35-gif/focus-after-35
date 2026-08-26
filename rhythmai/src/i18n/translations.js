@@ -6,6 +6,7 @@ const en = {
   'nav.plan': 'Plan',
   'nav.research': 'Ask',
   'nav.report': 'Report',
+  'nav.work': 'Work',
   'nav.settings': 'Settings',
 
   'onboarding.intro':
@@ -147,6 +148,35 @@ const en = {
   'insights.goalMomentum': "You've completed {percent}% of the steps across your active goals.",
   'insights.notEnoughData':
     "Not enough data yet to detect patterns — keep checking in daily and I'll start noticing trends.",
+
+  'dashboard.workWidgetTitle': 'Most urgent at work',
+
+  'work.title': 'Work & Projects',
+  'work.subtitle': "Add your projects, deadlines, and priorities — I'll help you keep track.",
+  'work.addProject': 'Add Project',
+  'work.projectTitleLabel': 'Project',
+  'work.projectTitlePlaceholder': 'e.g., Q3 report, client website redesign',
+  'work.deadlineLabel': 'Deadline (optional)',
+  'work.priorityLabel': 'Priority',
+  'work.priority.low': 'Low',
+  'work.priority.medium': 'Medium',
+  'work.priority.high': 'High',
+  'work.addTask': 'Add task',
+  'work.delete': 'Delete',
+  'work.empty': 'No projects yet. Add your first one above.',
+  'work.overdue': 'Overdue',
+  'work.dueSoon': 'Due soon',
+  'work.noDeadline': 'No deadline',
+  'work.tasksDone': '{done}/{total} tasks',
+
+  'travel.toggleLabel': 'Travel mode',
+  'travel.toggleHelp':
+    "Adjusts today's suggestions for travel — equipment-free exercise, hydration, and gentle sleep-schedule tips.",
+  'travel.activeBadge': '✈️ Travel mode is on',
+  'travel.suggestionsTitle': 'Travel-friendly suggestions',
+  'travel.item1': '10-minute no-equipment workout (bodyweight squats, push-ups, stretching)',
+  'travel.item2': 'Stay hydrated — drink water regularly, especially when flying',
+  'travel.item3': 'Keep a light, consistent sleep schedule despite the time change',
 }
 
 const ar = {
@@ -157,6 +187,7 @@ const ar = {
   'nav.plan': 'الخطة',
   'nav.research': 'اسأل',
   'nav.report': 'التقرير',
+  'nav.work': 'العمل',
   'nav.settings': 'الإعدادات',
 
   'onboarding.intro': 'قبل أن نبدأ، أحتاج إلى التعرّف عليك. كل ما تخبرني به يُحفظ فقط على جهازك، ولن أتصرف أبدًا دون موافقتك.',
@@ -286,6 +317,34 @@ const ar = {
   'insights.eveningStreak': 'سجلت تأمل المساء كل ليلة لمدة {count} يومًا متتاليًا — عادة جميلة.',
   'insights.goalMomentum': 'أنجزت {percent}% من خطوات أهدافك النشطة.',
   'insights.notEnoughData': 'لا توجد بيانات كافية بعد لاكتشاف الأنماط — استمر بتسجيل حضورك يوميًا وسأبدأ بملاحظة الاتجاهات.',
+
+  'dashboard.workWidgetTitle': 'الأكثر إلحاحًا في العمل',
+
+  'work.title': 'العمل والمشاريع',
+  'work.subtitle': 'أضف مشاريعك، مواعيدها النهائية، وأولوياتها — سأساعدك على المتابعة.',
+  'work.addProject': 'أضف مشروعًا',
+  'work.projectTitleLabel': 'المشروع',
+  'work.projectTitlePlaceholder': 'مثال: تقرير الربع الثالث، إعادة تصميم موقع العميل',
+  'work.deadlineLabel': 'الموعد النهائي (اختياري)',
+  'work.priorityLabel': 'الأولوية',
+  'work.priority.low': 'منخفضة',
+  'work.priority.medium': 'متوسطة',
+  'work.priority.high': 'عالية',
+  'work.addTask': 'أضف مهمة',
+  'work.delete': 'حذف',
+  'work.empty': 'لا مشاريع بعد. أضف أول مشروع لك أعلاه.',
+  'work.overdue': 'متأخر',
+  'work.dueSoon': 'يستحق قريبًا',
+  'work.noDeadline': 'بلا موعد نهائي',
+  'work.tasksDone': '{done}/{total} مهام',
+
+  'travel.toggleLabel': 'وضع السفر',
+  'travel.toggleHelp': 'يعدّل اقتراحات اليوم لتناسب السفر — تمارين بدون معدات، ترطيب، ونصائح لطيفة لجدول النوم.',
+  'travel.activeBadge': '✈️ وضع السفر مفعّل',
+  'travel.suggestionsTitle': 'اقتراحات مناسبة للسفر',
+  'travel.item1': 'تمرين 10 دقائق بدون معدات (قرفصاء، ضغط، تمدد)',
+  'travel.item2': 'حافظ على ترطيب جسمك — اشرب الماء بانتظام، خاصة أثناء الطيران',
+  'travel.item3': 'حافظ على جدول نوم خفيف ومنتظم رغم فرق التوقيت',
 }
 
 const fr = {
@@ -296,6 +355,7 @@ const fr = {
   'nav.plan': 'Plan',
   'nav.research': 'Demander',
   'nav.report': 'Rapport',
+  'nav.work': 'Travail',
   'nav.settings': 'Paramètres',
 
   'onboarding.intro':
@@ -437,6 +497,35 @@ const fr = {
   'insights.goalMomentum': 'Vous avez accompli {percent} % des étapes de vos objectifs actifs.',
   'insights.notEnoughData':
     'Pas encore assez de données pour détecter des tendances — continuez à vous enregistrer chaque jour, et je commencerai à en remarquer.',
+
+  'dashboard.workWidgetTitle': 'Le plus urgent au travail',
+
+  'work.title': 'Travail et projets',
+  'work.subtitle': 'Ajoutez vos projets, échéances et priorités — je vous aiderai à suivre tout cela.',
+  'work.addProject': 'Ajouter un projet',
+  'work.projectTitleLabel': 'Projet',
+  'work.projectTitlePlaceholder': 'ex. : rapport T3, refonte du site du client',
+  'work.deadlineLabel': 'Échéance (facultatif)',
+  'work.priorityLabel': 'Priorité',
+  'work.priority.low': 'Basse',
+  'work.priority.medium': 'Moyenne',
+  'work.priority.high': 'Haute',
+  'work.addTask': 'Ajouter une tâche',
+  'work.delete': 'Supprimer',
+  'work.empty': 'Aucun projet pour le moment. Ajoutez votre premier projet ci-dessus.',
+  'work.overdue': 'En retard',
+  'work.dueSoon': 'Bientôt dû',
+  'work.noDeadline': 'Aucune échéance',
+  'work.tasksDone': '{done}/{total} tâches',
+
+  'travel.toggleLabel': 'Mode voyage',
+  'travel.toggleHelp':
+    "Ajuste les suggestions du jour pour le voyage — exercices sans équipement, hydratation et conseils de sommeil adaptés.",
+  'travel.activeBadge': '✈️ Le mode voyage est activé',
+  'travel.suggestionsTitle': 'Suggestions adaptées au voyage',
+  'travel.item1': 'Séance de 10 minutes sans équipement (squats, pompes, étirements)',
+  'travel.item2': "Restez hydraté(e) — buvez de l'eau régulièrement, surtout en avion",
+  'travel.item3': 'Gardez un rythme de sommeil léger et régulier malgré le décalage horaire',
 }
 
 const es = {
@@ -447,6 +536,7 @@ const es = {
   'nav.plan': 'Plan',
   'nav.research': 'Preguntar',
   'nav.report': 'Informe',
+  'nav.work': 'Trabajo',
   'nav.settings': 'Configuración',
 
   'onboarding.intro':
@@ -588,6 +678,35 @@ const es = {
   'insights.goalMomentum': 'Ha completado el {percent}% de los pasos de sus objetivos activos.',
   'insights.notEnoughData':
     'Aún no hay suficientes datos para detectar patrones — siga registrándose a diario y empezaré a notar tendencias.',
+
+  'dashboard.workWidgetTitle': 'Lo más urgente en el trabajo',
+
+  'work.title': 'Trabajo y proyectos',
+  'work.subtitle': 'Añada sus proyectos, plazos y prioridades — le ayudaré a hacer seguimiento.',
+  'work.addProject': 'Añadir proyecto',
+  'work.projectTitleLabel': 'Proyecto',
+  'work.projectTitlePlaceholder': 'p. ej., informe del tercer trimestre, rediseño del sitio del cliente',
+  'work.deadlineLabel': 'Fecha límite (opcional)',
+  'work.priorityLabel': 'Prioridad',
+  'work.priority.low': 'Baja',
+  'work.priority.medium': 'Media',
+  'work.priority.high': 'Alta',
+  'work.addTask': 'Añadir tarea',
+  'work.delete': 'Eliminar',
+  'work.empty': 'Aún no hay proyectos. Añada su primer proyecto arriba.',
+  'work.overdue': 'Atrasado',
+  'work.dueSoon': 'Vence pronto',
+  'work.noDeadline': 'Sin fecha límite',
+  'work.tasksDone': '{done}/{total} tareas',
+
+  'travel.toggleLabel': 'Modo viaje',
+  'travel.toggleHelp':
+    'Ajusta las sugerencias de hoy para viajar — ejercicio sin equipo, hidratación y consejos suaves de sueño.',
+  'travel.activeBadge': '✈️ El modo viaje está activado',
+  'travel.suggestionsTitle': 'Sugerencias para viajar',
+  'travel.item1': 'Rutina de 10 minutos sin equipo (sentadillas, flexiones, estiramientos)',
+  'travel.item2': 'Manténgase hidratado/a — beba agua con regularidad, especialmente al volar',
+  'travel.item3': 'Mantenga un horario de sueño ligero y constante a pesar del cambio horario',
 }
 
 const zh = {
@@ -598,6 +717,7 @@ const zh = {
   'nav.plan': '计划',
   'nav.research': '咨询',
   'nav.report': '报告',
+  'nav.work': '工作',
   'nav.settings': '设置',
 
   'onboarding.intro': '在开始之前，我需要先了解您。您告诉我的一切仅保存在您的设备上，未经您同意，我绝不会采取任何行动。',
@@ -728,6 +848,34 @@ const zh = {
   'insights.eveningStreak': '您已连续{count}天坚持晚间反思——这是一个很棒的习惯。',
   'insights.goalMomentum': '您已完成活跃目标中{percent}%的步骤。',
   'insights.notEnoughData': '目前数据还不足以发现规律——请继续每天签到，我会开始注意到趋势。',
+
+  'dashboard.workWidgetTitle': '工作中最紧急的事项',
+
+  'work.title': '工作与项目',
+  'work.subtitle': '添加您的项目、截止日期和优先级——我会帮您跟踪进度。',
+  'work.addProject': '添加项目',
+  'work.projectTitleLabel': '项目',
+  'work.projectTitlePlaceholder': '例如：第三季度报告、客户网站改版',
+  'work.deadlineLabel': '截止日期（可选）',
+  'work.priorityLabel': '优先级',
+  'work.priority.low': '低',
+  'work.priority.medium': '中',
+  'work.priority.high': '高',
+  'work.addTask': '添加任务',
+  'work.delete': '删除',
+  'work.empty': '尚无项目。请在上方添加您的第一个项目。',
+  'work.overdue': '已逾期',
+  'work.dueSoon': '即将到期',
+  'work.noDeadline': '无截止日期',
+  'work.tasksDone': '{done}/{total} 项任务',
+
+  'travel.toggleLabel': '旅行模式',
+  'travel.toggleHelp': '为旅行调整今日建议——无器械锻炼、补水提醒，以及温和的作息建议。',
+  'travel.activeBadge': '✈️ 旅行模式已开启',
+  'travel.suggestionsTitle': '适合旅行的建议',
+  'travel.item1': '10分钟无器械锻炼（徒手深蹲、俯卧撑、拉伸）',
+  'travel.item2': '保持水分——定时喝水，尤其是在飞行途中',
+  'travel.item3': '尽管时差变化，也要保持轻松规律的睡眠时间',
 }
 
 const ru = {
@@ -738,6 +886,7 @@ const ru = {
   'nav.plan': 'План',
   'nav.research': 'Спросить',
   'nav.report': 'Отчёт',
+  'nav.work': 'Работа',
   'nav.settings': 'Настройки',
 
   'onboarding.intro':
@@ -872,6 +1021,35 @@ const ru = {
   'insights.goalMomentum': 'Вы выполнили {percent}% шагов по своим активным целям.',
   'insights.notEnoughData':
     'Пока недостаточно данных для выявления закономерностей — продолжайте отмечаться каждый день, и я начну замечать тенденции.',
+
+  'dashboard.workWidgetTitle': 'Самое срочное по работе',
+
+  'work.title': 'Работа и проекты',
+  'work.subtitle': 'Добавьте свои проекты, сроки и приоритеты — я помогу вам отслеживать прогресс.',
+  'work.addProject': 'Добавить проект',
+  'work.projectTitleLabel': 'Проект',
+  'work.projectTitlePlaceholder': 'например: отчёт за 3 квартал, редизайн сайта клиента',
+  'work.deadlineLabel': 'Срок (необязательно)',
+  'work.priorityLabel': 'Приоритет',
+  'work.priority.low': 'Низкий',
+  'work.priority.medium': 'Средний',
+  'work.priority.high': 'Высокий',
+  'work.addTask': 'Добавить задачу',
+  'work.delete': 'Удалить',
+  'work.empty': 'Пока нет проектов. Добавьте свой первый проект выше.',
+  'work.overdue': 'Просрочено',
+  'work.dueSoon': 'Скоро срок',
+  'work.noDeadline': 'Без срока',
+  'work.tasksDone': '{done}/{total} задач',
+
+  'travel.toggleLabel': 'Режим путешествия',
+  'travel.toggleHelp':
+    'Корректирует сегодняшние рекомендации для путешествия — упражнения без инвентаря, питьевой режим и мягкие советы по сну.',
+  'travel.activeBadge': '✈️ Режим путешествия включён',
+  'travel.suggestionsTitle': 'Рекомендации для путешествия',
+  'travel.item1': '10-минутная тренировка без инвентаря (приседания, отжимания, растяжка)',
+  'travel.item2': 'Пейте достаточно воды — особенно во время перелёта',
+  'travel.item3': 'Старайтесь придерживаться лёгкого, стабильного режима сна, несмотря на смену часовых поясов',
 }
 
 export const translations = { en, ar, fr, es, zh, ru }

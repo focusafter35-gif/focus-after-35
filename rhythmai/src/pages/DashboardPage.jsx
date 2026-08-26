@@ -2,9 +2,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { storage } from '../lib/storage.js'
 import { todayKey, todayWeekdayName } from '../lib/dates.js'
+import { mostUrgentTask } from '../lib/projects.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import EnergyCheckIn from '../components/EnergyCheckIn.jsx'
 import EveningCheckIn from '../components/EveningCheckIn.jsx'
+
+const TRAVEL_ITEM_KEYS = ['travel.item1', 'travel.item2', 'travel.item3']
 
 export default function DashboardPage() {
   const { t, lang } = useLanguage()
@@ -12,10 +15,13 @@ export default function DashboardPage() {
   const [profile] = useState(() => storage.getProfile())
   const [plan] = useState(() => storage.getPlan())
   const [goals] = useState(() => storage.getGoals())
+  const [projects, setProjects] = useState(() => storage.getProjects())
+  const [travelMode] = useState(() => !!storage.getSettings().travelMode)
   const [done, setDone] = useState(() => storage.getCompletedToday(key))
   const [energy, setEnergy] = useState(() => storage.getEnergyLog()[key] || null)
   const [crisisActive, setCrisisActive] = useState(() => !!storage.getCrisisLog()[key])
   const [eveningEntry, setEveningEntry] = useState(() => storage.getEveningLog().find((e) => e.date === key))
+  const urgentWork = useMemo(() => mostUrgentTask(projects), [projects])
 
   useEffect(() => {
     storage.setCompletedToday(key, done)
@@ -57,6 +63,17 @@ export default function DashboardPage() {
     const next = !crisisActive
     storage.setCrisisToday(key, next)
     setCrisisActive(next)
+  }
+
+  function toggleUrgentWorkTask() {
+    if (!urgentWork) return
+    const next = projects.map((p) =>
+      p.id !== urgentWork.projectId
+        ? p
+        : { ...p, tasks: p.tasks.map((tk) => (tk.id === urgentWork.task.id ? { ...tk, done: !tk.done } : tk)) }
+    )
+    setProjects(next)
+    storage.setProjects(next)
   }
 
   function saveEvening(answer) {
@@ -170,9 +187,59 @@ export default function DashboardPage() {
             </div>
           )}
 
-          <div className="flex gap-3">
+          {urgentWork && (
+            <div className="card p-6">
+              <h2 className="font-semibold mb-3">{t('dashboard.workWidgetTitle')}</h2>
+              <button
+                type="button"
+                onClick={toggleUrgentWorkTask}
+                className="w-full text-start flex items-center gap-3 rounded-xl border border-border hover:bg-surfaceMuted px-4 py-3 transition-colors"
+              >
+                <span className="h-5 w-5 rounded-full border-2 border-border flex-shrink-0" />
+                {urgentWork.task.text}
+                <span className="text-xs text-muted ms-auto">({urgentWork.projectTitle})</span>
+              </button>
+            </div>
+          )}
+
+          {travelMode && (
+            <div className="card p-6">
+              <h2 className="font-semibold mb-1">{t('travel.activeBadge')}</h2>
+              <p className="text-xs text-muted mb-3">{t('travel.suggestionsTitle')}</p>
+              <ul className="space-y-2">
+                {TRAVEL_ITEM_KEYS.map((itemKey) => {
+                  const text = t(itemKey)
+                  return (
+                    <li key={itemKey}>
+                      <button
+                        type="button"
+                        onClick={() => toggle(text)}
+                        className={`w-full text-start flex items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-colors ${
+                          done.includes(text)
+                            ? 'border-accent/30 bg-accentSoft text-muted line-through'
+                            : 'border-border hover:bg-surfaceMuted'
+                        }`}
+                      >
+                        <span
+                          className={`h-5 w-5 rounded-full border-2 flex-shrink-0 ${
+                            done.includes(text) ? 'bg-accent border-accent' : 'border-border'
+                          }`}
+                        />
+                        {text}
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
+
+          <div className="flex gap-3 flex-wrap">
             <Link to="/goals" className="btn-secondary flex-1 justify-center">
               {t('dashboard.linkGoals')}
+            </Link>
+            <Link to="/work" className="btn-secondary flex-1 justify-center">
+              {t('nav.work')}
             </Link>
             <Link to="/plan" className="btn-secondary flex-1 justify-center">
               {t('dashboard.linkPlan')}

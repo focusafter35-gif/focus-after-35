@@ -66,8 +66,14 @@ src/
     PlanPage.jsx          # suggest/edit/approve the weekly plan
     ResearchPage.jsx      # ask-anything with safety disclaimers
     ReportPage.jsx        # weekly completion chart, energy/evening stats, detected patterns, AI summary
-    SettingsPage.jsx      # API key, language, theme, profile, export/delete data
+    WorkPage.jsx           # projects with deadlines/priorities, sorted by urgency
+    SettingsPage.jsx      # API key, language, theme, travel mode, profile, export/delete data
 ```
+
+## Work & travel mode
+
+- **Work & Projects** (`/work`): add a project with an optional deadline and a priority; projects are sorted by urgency (overdue first, then nearest deadline, then priority). The single most urgent unfinished task across all projects also surfaces on the Dashboard.
+- **Travel mode** (toggle in Settings): while on, the Dashboard shows a small set of travel-friendly suggestions (equipment-free exercise, hydration, a gentle note on sleep schedule) that can be checked off like any other task.
 
 ## Weekly report & pattern detection
 

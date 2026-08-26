@@ -52,6 +52,19 @@ export default function SettingsPage() {
       </section>
 
       <section className="card p-6 space-y-4">
+        <h2 className="font-semibold">{t('travel.toggleLabel')}</h2>
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            className="mt-1 h-4 w-4"
+            checked={!!settings.travelMode}
+            onChange={(e) => setSettings((s) => ({ ...s, travelMode: e.target.checked }))}
+          />
+          <span className="text-sm text-muted">{t('travel.toggleHelp')}</span>
+        </label>
+      </section>
+
+      <section className="card p-6 space-y-4">
         <h2 className="font-semibold">{t('settings.aiSection')}</h2>
         <div>
           <label className="label">{t('settings.apiKeyLabel')}</label>
