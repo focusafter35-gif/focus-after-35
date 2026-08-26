@@ -123,7 +123,7 @@ export async function askResearch(question, profile) {
 
 function fallbackAnswer(question, flaggedMedical) {
   if (flaggedMedical) {
-    return `لا أستطيع تقديم إجابة موثوقة بدون اتصال بالذكاء الاصطناعي حاليًا. ${MEDICAL_DISCLAIMER_AR}\n\nأضف مفتاح API الخاص بك في الإعدادات لتفعيل البحث العميق.`
+    return 'لا أستطيع تقديم إجابة موثوقة بدون اتصال بالذكاء الاصطناعي حاليًا. أضف مفتاح API الخاص بك في الإعدادات لتفعيل البحث العميق.'
   }
   return 'لتفعيل البحث العميق والإجابات المخصصة، أضف مفتاح Anthropic API الخاص بك من صفحة الإعدادات. بياناتك ومفتاحك يبقيان في متصفحك فقط.'
 }
