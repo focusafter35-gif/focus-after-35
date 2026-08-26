@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import App from './App.jsx'
 import { LanguageProvider } from './i18n/LanguageContext.jsx'
 import { ThemeProvider } from './theme/ThemeContext.jsx'
@@ -10,9 +10,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
       <LanguageProvider>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </LanguageProvider>
     </ThemeProvider>
   </React.StrictMode>,

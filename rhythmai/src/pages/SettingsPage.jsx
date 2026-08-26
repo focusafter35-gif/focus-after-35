@@ -31,7 +31,8 @@ export default function SettingsPage() {
   function clearData() {
     if (!confirm(t('settings.deleteConfirm'))) return
     storage.clearAll()
-    window.location.href = '/welcome'
+    window.location.hash = '#/welcome'
+    window.location.reload()
   }
 
   return (
