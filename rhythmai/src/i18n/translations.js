@@ -5,6 +5,7 @@ const en = {
   'nav.goals': 'Goals',
   'nav.plan': 'Plan',
   'nav.research': 'Ask',
+  'nav.report': 'Report',
   'nav.settings': 'Settings',
 
   'onboarding.intro':
@@ -125,6 +126,27 @@ const en = {
   'theme.emeraldMarble.desc': 'Cream marble with deep emerald and antique gold',
   'theme.platinumPearl.name': 'Platinum Pearl',
   'theme.platinumPearl.desc': 'Cool pearl white with refined platinum accents',
+
+  'report.title': 'Your Weekly Report',
+  'report.subtitle': 'A quick look at how this week went.',
+  'report.noPlanYet': 'Create a weekly plan to start tracking your progress.',
+  'report.completionRate': 'Task completion this week',
+  'report.energyDistribution': 'Energy this week',
+  'report.eveningReflections': 'Evening reflections this week',
+  'report.patternsTitle': "What I've noticed",
+  'report.narrativeTitle': 'This week in summary',
+  'report.generating': 'Reflecting on your week…',
+  'report.refresh': 'Regenerate summary',
+  'report.fallbackSummary':
+    'You completed {rate}% of your planned tasks this week. Your energy was mostly {energy}. You checked in with an evening reflection {eveningCount} time(s).',
+
+  'insights.energyByWeekday': 'Higher energy tendency: {weekday}',
+  'insights.engagementHighEnergy':
+    'You complete more tasks on high-energy days — {high} on average, versus {low} on low-energy days.',
+  'insights.eveningStreak': "You've reflected every evening for {count} days in a row — a lovely habit.",
+  'insights.goalMomentum': "You've completed {percent}% of the steps across your active goals.",
+  'insights.notEnoughData':
+    "Not enough data yet to detect patterns — keep checking in daily and I'll start noticing trends.",
 }
 
 const ar = {
@@ -134,6 +156,7 @@ const ar = {
   'nav.goals': 'الأهداف',
   'nav.plan': 'الخطة',
   'nav.research': 'اسأل',
+  'nav.report': 'التقرير',
   'nav.settings': 'الإعدادات',
 
   'onboarding.intro': 'قبل أن نبدأ، أحتاج إلى التعرّف عليك. كل ما تخبرني به يُحفظ فقط على جهازك، ولن أتصرف أبدًا دون موافقتك.',
@@ -245,6 +268,24 @@ const ar = {
   'theme.emeraldMarble.desc': 'رخام كريمي مع زمرد عميق وذهب عتيق',
   'theme.platinumPearl.name': 'لؤلؤ بلاتيني',
   'theme.platinumPearl.desc': 'أبيض لؤلؤي بارد بلمسات بلاتينية أنيقة',
+
+  'report.title': 'تقريرك الأسبوعي',
+  'report.subtitle': 'نظرة سريعة على كيف مر أسبوعك.',
+  'report.noPlanYet': 'أنشئ خطة أسبوعية لتبدأ بتتبع تقدمك.',
+  'report.completionRate': 'إنجاز المهام هذا الأسبوع',
+  'report.energyDistribution': 'طاقتك هذا الأسبوع',
+  'report.eveningReflections': 'تأملات المساء هذا الأسبوع',
+  'report.patternsTitle': 'ما لاحظته',
+  'report.narrativeTitle': 'ملخص هذا الأسبوع',
+  'report.generating': 'جارٍ التأمل في أسبوعك…',
+  'report.refresh': 'أعد توليد الملخص',
+  'report.fallbackSummary': 'أنجزت {rate}% من مهامك المخططة هذا الأسبوع. كانت طاقتك في الغالب {energy}. سجلت تأمل المساء {eveningCount} مرة.',
+
+  'insights.energyByWeekday': 'ميل لطاقة أعلى: {weekday}',
+  'insights.engagementHighEnergy': 'تنجز مهام أكثر في أيام الطاقة العالية — {high} في المتوسط، مقابل {low} في أيام الطاقة المنخفضة.',
+  'insights.eveningStreak': 'سجلت تأمل المساء كل ليلة لمدة {count} يومًا متتاليًا — عادة جميلة.',
+  'insights.goalMomentum': 'أنجزت {percent}% من خطوات أهدافك النشطة.',
+  'insights.notEnoughData': 'لا توجد بيانات كافية بعد لاكتشاف الأنماط — استمر بتسجيل حضورك يوميًا وسأبدأ بملاحظة الاتجاهات.',
 }
 
 const fr = {
@@ -254,6 +295,7 @@ const fr = {
   'nav.goals': 'Objectifs',
   'nav.plan': 'Plan',
   'nav.research': 'Demander',
+  'nav.report': 'Rapport',
   'nav.settings': 'Paramètres',
 
   'onboarding.intro':
@@ -374,6 +416,27 @@ const fr = {
   'theme.emeraldMarble.desc': 'Marbre crème avec émeraude profond et or antique',
   'theme.platinumPearl.name': 'Perle Platine',
   'theme.platinumPearl.desc': 'Blanc perle frais aux accents platine raffinés',
+
+  'report.title': 'Votre rapport hebdomadaire',
+  'report.subtitle': 'Un aperçu rapide de votre semaine.',
+  'report.noPlanYet': 'Créez un plan hebdomadaire pour commencer à suivre vos progrès.',
+  'report.completionRate': 'Tâches accomplies cette semaine',
+  'report.energyDistribution': 'Votre énergie cette semaine',
+  'report.eveningReflections': 'Réflexions du soir cette semaine',
+  'report.patternsTitle': "Ce que j'ai remarqué",
+  'report.narrativeTitle': 'Résumé de la semaine',
+  'report.generating': 'Réflexion sur votre semaine…',
+  'report.refresh': 'Régénérer le résumé',
+  'report.fallbackSummary':
+    'Vous avez accompli {rate} % de vos tâches prévues cette semaine. Votre énergie était principalement {energy}. Vous avez fait une réflexion du soir {eveningCount} fois.',
+
+  'insights.energyByWeekday': "Tendance à plus d'énergie : {weekday}",
+  'insights.engagementHighEnergy':
+    'Vous accomplissez plus de tâches les jours de forte énergie — {high} en moyenne, contre {low} les jours de faible énergie.',
+  'insights.eveningStreak': "Vous avez fait une réflexion du soir chaque jour pendant {count} jours d'affilée — une belle habitude.",
+  'insights.goalMomentum': 'Vous avez accompli {percent} % des étapes de vos objectifs actifs.',
+  'insights.notEnoughData':
+    'Pas encore assez de données pour détecter des tendances — continuez à vous enregistrer chaque jour, et je commencerai à en remarquer.',
 }
 
 const es = {
@@ -383,6 +446,7 @@ const es = {
   'nav.goals': 'Objetivos',
   'nav.plan': 'Plan',
   'nav.research': 'Preguntar',
+  'nav.report': 'Informe',
   'nav.settings': 'Configuración',
 
   'onboarding.intro':
@@ -503,6 +567,27 @@ const es = {
   'theme.emeraldMarble.desc': 'Mármol crema con esmeralda profundo y oro antiguo',
   'theme.platinumPearl.name': 'Perla Platino',
   'theme.platinumPearl.desc': 'Blanco perla fresco con refinados acentos de platino',
+
+  'report.title': 'Su informe semanal',
+  'report.subtitle': 'Un vistazo rápido a cómo fue su semana.',
+  'report.noPlanYet': 'Cree un plan semanal para empezar a seguir su progreso.',
+  'report.completionRate': 'Tareas completadas esta semana',
+  'report.energyDistribution': 'Su energía esta semana',
+  'report.eveningReflections': 'Reflexiones nocturnas esta semana',
+  'report.patternsTitle': 'Lo que he notado',
+  'report.narrativeTitle': 'Resumen de la semana',
+  'report.generating': 'Reflexionando sobre su semana…',
+  'report.refresh': 'Regenerar resumen',
+  'report.fallbackSummary':
+    'Completó el {rate}% de sus tareas planificadas esta semana. Su energía fue principalmente {energy}. Registró una reflexión nocturna {eveningCount} vez/veces.',
+
+  'insights.energyByWeekday': 'Tendencia a mayor energía: {weekday}',
+  'insights.engagementHighEnergy':
+    'Completa más tareas en los días de energía alta — {high} en promedio, frente a {low} en los días de energía baja.',
+  'insights.eveningStreak': 'Ha hecho una reflexión nocturna cada día durante {count} días seguidos — un hábito encantador.',
+  'insights.goalMomentum': 'Ha completado el {percent}% de los pasos de sus objetivos activos.',
+  'insights.notEnoughData':
+    'Aún no hay suficientes datos para detectar patrones — siga registrándose a diario y empezaré a notar tendencias.',
 }
 
 const zh = {
@@ -512,6 +597,7 @@ const zh = {
   'nav.goals': '目标',
   'nav.plan': '计划',
   'nav.research': '咨询',
+  'nav.report': '报告',
   'nav.settings': '设置',
 
   'onboarding.intro': '在开始之前，我需要先了解您。您告诉我的一切仅保存在您的设备上，未经您同意，我绝不会采取任何行动。',
@@ -624,6 +710,24 @@ const zh = {
   'theme.emeraldMarble.desc': '奶油大理石纹理，搭配深邃翡翠绿与古典金',
   'theme.platinumPearl.name': '铂金珍珠',
   'theme.platinumPearl.desc': '清透珍珠白，搭配精致铂金点缀',
+
+  'report.title': '您的每周报告',
+  'report.subtitle': '快速了解您本周的整体情况。',
+  'report.noPlanYet': '创建每周计划以开始跟踪您的进度。',
+  'report.completionRate': '本周任务完成情况',
+  'report.energyDistribution': '本周精力状况',
+  'report.eveningReflections': '本周晚间反思',
+  'report.patternsTitle': '我注意到的',
+  'report.narrativeTitle': '本周总结',
+  'report.generating': '正在回顾您的一周…',
+  'report.refresh': '重新生成总结',
+  'report.fallbackSummary': '您本周完成了计划任务的 {rate}%。您的精力大多为{energy}。您进行了 {eveningCount} 次晚间反思。',
+
+  'insights.energyByWeekday': '精力较高的趋向日：{weekday}',
+  'insights.engagementHighEnergy': '您在精力充沛的日子里完成更多任务——平均{high}项，而精力较低的日子平均{low}项。',
+  'insights.eveningStreak': '您已连续{count}天坚持晚间反思——这是一个很棒的习惯。',
+  'insights.goalMomentum': '您已完成活跃目标中{percent}%的步骤。',
+  'insights.notEnoughData': '目前数据还不足以发现规律——请继续每天签到，我会开始注意到趋势。',
 }
 
 const ru = {
@@ -633,6 +737,7 @@ const ru = {
   'nav.goals': 'Цели',
   'nav.plan': 'План',
   'nav.research': 'Спросить',
+  'nav.report': 'Отчёт',
   'nav.settings': 'Настройки',
 
   'onboarding.intro':
@@ -746,6 +851,27 @@ const ru = {
   'theme.emeraldMarble.desc': 'Кремовый мрамор с глубоким изумрудом и античным золотом',
   'theme.platinumPearl.name': 'Платиновый жемчуг',
   'theme.platinumPearl.desc': 'Прохладный жемчужно-белый с изысканными платиновыми акцентами',
+
+  'report.title': 'Ваш недельный отчёт',
+  'report.subtitle': 'Краткий обзор того, как прошла ваша неделя.',
+  'report.noPlanYet': 'Создайте план на неделю, чтобы начать отслеживать прогресс.',
+  'report.completionRate': 'Выполнение задач на этой неделе',
+  'report.energyDistribution': 'Ваша энергия на этой неделе',
+  'report.eveningReflections': 'Вечерние размышления на этой неделе',
+  'report.patternsTitle': 'Что я заметил',
+  'report.narrativeTitle': 'Итоги недели',
+  'report.generating': 'Обдумываю вашу неделю…',
+  'report.refresh': 'Сформировать заново',
+  'report.fallbackSummary':
+    'На этой неделе вы выполнили {rate}% запланированных задач. Ваша энергия чаще всего была {energy}. Вы делали вечернее размышление {eveningCount} раз(а).',
+
+  'insights.energyByWeekday': 'Тенденция к более высокой энергии: {weekday}',
+  'insights.engagementHighEnergy':
+    'Вы выполняете больше задач в дни с высокой энергией — в среднем {high}, против {low} в дни с низкой энергией.',
+  'insights.eveningStreak': 'Вы делали вечернее размышление каждый день подряд уже {count} дней — прекрасная привычка.',
+  'insights.goalMomentum': 'Вы выполнили {percent}% шагов по своим активным целям.',
+  'insights.notEnoughData':
+    'Пока недостаточно данных для выявления закономерностей — продолжайте отмечаться каждый день, и я начну замечать тенденции.',
 }
 
 export const translations = { en, ar, fr, es, zh, ru }

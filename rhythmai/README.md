@@ -65,8 +65,17 @@ src/
     GoalsPage.jsx         # goals broken into AI-generated steps, with progress tracking
     PlanPage.jsx          # suggest/edit/approve the weekly plan
     ResearchPage.jsx      # ask-anything with safety disclaimers
+    ReportPage.jsx        # weekly completion chart, energy/evening stats, detected patterns, AI summary
     SettingsPage.jsx      # API key, language, theme, profile, export/delete data
 ```
+
+## Weekly report & pattern detection
+
+`lib/insights.js` computes the weekly report entirely from locally stored history — no fabricated claims:
+
+- **This week's chart** compares completed vs. planned tasks per day, using the *current* plan (task completion is stored per calendar day in `rhythmai.completion_log`).
+- **Patterns** ("what I've noticed") are only surfaced when there is real repeated signal — e.g. an energy-by-weekday trend needs samples from at least two different weeks on the same weekday before it's shown, and a "high-energy days get more done" pattern needs at least two low- and two high-energy samples. With only a few days of history, the page will honestly say there isn't enough data yet rather than guessing.
+- The narrative summary is AI-generated when a key is set (with an explicit instruction not to invent facts beyond the computed stats) and falls back to a simple templated summary otherwise.
 
 ## Current limitations (MVP)
 
@@ -74,3 +83,4 @@ src/
 - No cross-device sync (data is local by design).
 - Research does not yet query external web sources; it relies on the model's own knowledge.
 - A weekly plan generated in one language keeps its day labels in that language; switching languages afterward does not retroactively relabel an already-approved plan.
+- The weekly report's completion chart reflects the *current* plan only — if the plan is replaced mid-week, earlier days in the chart are shown against the new plan's task list for that weekday.

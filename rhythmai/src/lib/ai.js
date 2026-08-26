@@ -282,6 +282,35 @@ function fallbackSteps(title, lang) {
   return fn(title)
 }
 
+// ---- Weekly report narrative ----
+
+export async function generateWeeklyReport(stats, profile, lang) {
+  try {
+    const raw = await callClaude({
+      system: SAFETY_SYSTEM_PROMPT,
+      lang,
+      maxTokens: 500,
+      messages: [
+        {
+          role: 'user',
+          content: `Here is a summary of my past week of activity in the app:
+- Planned tasks: ${stats.totalPlanned}, completed: ${stats.totalCompleted}
+- Energy check-ins: low ${stats.energyCounts.low}, medium ${stats.energyCounts.medium}, high ${stats.energyCounts.high}
+- Evening reflections logged: ${stats.eveningCount} out of the last 7 days
+
+My profile:
+${profileSummary(profile)}
+
+Write a short, warm 3-4 sentence weekly summary covering: what improved, what might need adjustment, and one encouraging observation. Do not invent facts beyond what is given above. Do not give medical advice.`,
+        },
+      ],
+    })
+    return { source: 'ai', text: raw }
+  } catch (e) {
+    return { source: 'fallback', error: e.code }
+  }
+}
+
 function extractJson(text) {
   try {
     const match = text.match(/\{[\s\S]*\}/)

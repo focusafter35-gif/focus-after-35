@@ -12,14 +12,14 @@ export default function DashboardPage() {
   const [profile] = useState(() => storage.getProfile())
   const [plan] = useState(() => storage.getPlan())
   const [goals] = useState(() => storage.getGoals())
-  const [done, setDone] = useState(() => storage.getTasks())
+  const [done, setDone] = useState(() => storage.getCompletedToday(key))
   const [energy, setEnergy] = useState(() => storage.getEnergyLog()[key] || null)
   const [crisisActive, setCrisisActive] = useState(() => !!storage.getCrisisLog()[key])
   const [eveningEntry, setEveningEntry] = useState(() => storage.getEveningLog().find((e) => e.date === key))
 
   useEffect(() => {
-    storage.setTasks(done)
-  }, [done])
+    storage.setCompletedToday(key, done)
+  }, [key, done])
 
   const todayName = todayWeekdayName(lang)
   // plan.days is always ordered Sunday..Saturday (see ai.js normalizeDays/fallbackPlan),

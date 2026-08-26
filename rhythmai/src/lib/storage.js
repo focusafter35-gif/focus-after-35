@@ -5,13 +5,13 @@
 const KEYS = {
   profile: 'rhythmai.profile',
   plan: 'rhythmai.plan',
-  tasks: 'rhythmai.tasks',
   settings: 'rhythmai.settings',
   history: 'rhythmai.research_history',
   goals: 'rhythmai.goals',
   energyLog: 'rhythmai.energy_log',
   crisisLog: 'rhythmai.crisis_log',
   eveningLog: 'rhythmai.evening_log',
+  completionLog: 'rhythmai.completion_log',
 }
 
 function read(key, fallback) {
@@ -39,8 +39,14 @@ export const storage = {
   getPlan: () => read(KEYS.plan, null),
   setPlan: (plan) => write(KEYS.plan, plan),
 
-  getTasks: () => read(KEYS.tasks, []),
-  setTasks: (tasks) => write(KEYS.tasks, tasks),
+  // ---- Task completion, scoped per day: { [dateKey]: string[] } ----
+  getCompletionLog: () => read(KEYS.completionLog, {}),
+  getCompletedToday: (dateKey) => read(KEYS.completionLog, {})[dateKey] || [],
+  setCompletedToday: (dateKey, completed) => {
+    const log = read(KEYS.completionLog, {})
+    log[dateKey] = completed
+    write(KEYS.completionLog, log)
+  },
 
   getSettings: () =>
     read(KEYS.settings, { apiKey: '', tone: 'gentle', notifications: false, language: 'en', theme: 'platinum-pearl' }),
@@ -89,7 +95,7 @@ export const storage = {
   exportAll: () => ({
     profile: read(KEYS.profile, null),
     plan: read(KEYS.plan, null),
-    tasks: read(KEYS.tasks, []),
+    completionLog: read(KEYS.completionLog, {}),
     settings: { ...read(KEYS.settings, {}), apiKey: undefined },
     history: read(KEYS.history, []),
     goals: read(KEYS.goals, []),
