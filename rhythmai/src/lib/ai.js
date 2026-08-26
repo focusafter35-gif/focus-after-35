@@ -128,6 +128,44 @@ function fallbackAnswer(question, flaggedMedical) {
   return 'لتفعيل البحث العميق والإجابات المخصصة، أضف مفتاح Anthropic API الخاص بك من صفحة الإعدادات. بياناتك ومفتاحك يبقيان في متصفحك فقط.'
 }
 
+// ---- Goal breakdown ----
+
+export async function breakdownGoal(title, why, profile) {
+  try {
+    const raw = await callClaude({
+      system: SAFETY_SYSTEM_PROMPT,
+      messages: [
+        {
+          role: 'user',
+          content: `اكسر الهدف التالي إلى 4-6 خطوات عملية وقابلة للتنفيذ فعليًا (وليست عامة).
+أعد الإجابة بصيغة JSON فقط بدون أي نص إضافي: {"steps": ["خطوة 1", "خطوة 2", ...]}
+
+الهدف: ${title}
+${why ? `لماذا هذا الهدف مهم لي: ${why}` : ''}
+
+سياق موجز عني: ${profileSummary(profile)}`,
+        },
+      ],
+      maxTokens: 500,
+    })
+    const parsed = extractJson(raw)
+    if (parsed?.steps?.length) return { source: 'ai', steps: parsed.steps }
+    throw new Error('bad-format')
+  } catch (e) {
+    return { source: 'fallback', steps: fallbackSteps(title), error: e.code }
+  }
+}
+
+function fallbackSteps(title) {
+  return [
+    `حدد بوضوح لماذا "${title}" مهم لك الآن`,
+    'اختر أول خطوة صغيرة يمكن إنجازها خلال اليومين القادمين',
+    'خصص وقتًا ثابتًا أسبوعيًا لهذا الهدف في خطتك',
+    'تتبع تقدمك كل أسبوع وعدّل ما لا ينفع',
+    'احتفل بأي تقدم، مهما كان صغيرًا',
+  ]
+}
+
 function extractJson(text) {
   try {
     const match = text.match(/\{[\s\S]*\}/)

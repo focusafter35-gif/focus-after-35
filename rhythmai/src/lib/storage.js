@@ -8,6 +8,10 @@ const KEYS = {
   tasks: 'rhythmai.tasks',
   settings: 'rhythmai.settings',
   history: 'rhythmai.research_history',
+  goals: 'rhythmai.goals',
+  energyLog: 'rhythmai.energy_log',
+  crisisLog: 'rhythmai.crisis_log',
+  eveningLog: 'rhythmai.evening_log',
 }
 
 function read(key, fallback) {
@@ -48,6 +52,35 @@ export const storage = {
     write(KEYS.history, history.slice(0, 50))
   },
 
+  // ---- Goals (each: { id, title, why, steps: [{ id, text, done }], createdAt }) ----
+  getGoals: () => read(KEYS.goals, []),
+  setGoals: (goals) => write(KEYS.goals, goals),
+
+  // ---- Morning energy check-in: { [dateKey]: 'low' | 'medium' | 'high' } ----
+  getEnergyLog: () => read(KEYS.energyLog, {}),
+  setTodayEnergy: (dateKey, level) => {
+    const log = read(KEYS.energyLog, {})
+    log[dateKey] = level
+    write(KEYS.energyLog, log)
+  },
+
+  // ---- Crisis ("hard day") mode: { [dateKey]: true } ----
+  getCrisisLog: () => read(KEYS.crisisLog, {}),
+  setCrisisToday: (dateKey, active) => {
+    const log = read(KEYS.crisisLog, {})
+    if (active) log[dateKey] = true
+    else delete log[dateKey]
+    write(KEYS.crisisLog, log)
+  },
+
+  // ---- Evening check-in: [{ date, answer, at }] ----
+  getEveningLog: () => read(KEYS.eveningLog, []),
+  setTodayEveningEntry: (dateKey, answer) => {
+    const log = read(KEYS.eveningLog, []).filter((e) => e.date !== dateKey)
+    log.unshift({ date: dateKey, answer, at: new Date().toISOString() })
+    write(KEYS.eveningLog, log.slice(0, 90))
+  },
+
   clearAll: () => {
     Object.values(KEYS).forEach((k) => localStorage.removeItem(k))
   },
@@ -58,6 +91,10 @@ export const storage = {
     tasks: read(KEYS.tasks, []),
     settings: { ...read(KEYS.settings, {}), apiKey: undefined },
     history: read(KEYS.history, []),
+    goals: read(KEYS.goals, []),
+    energyLog: read(KEYS.energyLog, {}),
+    crisisLog: read(KEYS.crisisLog, {}),
+    eveningLog: read(KEYS.eveningLog, []),
     exportedAt: new Date().toISOString(),
   }),
 }

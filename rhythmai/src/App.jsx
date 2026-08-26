@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import OnboardingPage from './pages/OnboardingPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
+import GoalsPage from './pages/GoalsPage.jsx'
 import PlanPage from './pages/PlanPage.jsx'
 import ResearchPage from './pages/ResearchPage.jsx'
 import SettingsPage from './pages/SettingsPage.jsx'
@@ -22,6 +23,14 @@ export default function App() {
           element={
             <RequireProfile>
               <DashboardPage />
+            </RequireProfile>
+          }
+        />
+        <Route
+          path="/goals"
+          element={
+            <RequireProfile>
+              <GoalsPage />
             </RequireProfile>
           }
         />

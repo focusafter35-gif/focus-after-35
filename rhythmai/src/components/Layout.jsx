@@ -2,6 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 const links = [
   { to: '/', label: 'اليوم', end: true },
+  { to: '/goals', label: 'الأهداف' },
   { to: '/plan', label: 'الخطة' },
   { to: '/research', label: 'ابحث' },
   { to: '/settings', label: 'الإعدادات' },
