@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { storage } from '../lib/storage.js'
 import { breakdownGoal } from '../lib/ai.js'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 function uid() {
   return Math.random().toString(36).slice(2, 10)
 }
 
 export default function GoalsPage() {
+  const { t, lang } = useLanguage()
   const [profile] = useState(() => storage.getProfile())
   const [goals, setGoals] = useState(() => storage.getGoals())
   const [title, setTitle] = useState('')
@@ -24,7 +26,7 @@ export default function GoalsPage() {
     if (!title.trim() || loading) return
     setLoading(true)
     setFallbackNotice(false)
-    const result = await breakdownGoal(title.trim(), why.trim(), profile)
+    const result = await breakdownGoal(title.trim(), why.trim(), profile, lang)
     const goal = {
       id: uid(),
       title: title.trim(),
@@ -50,39 +52,35 @@ export default function GoalsPage() {
   }
 
   function deleteGoal(goalId) {
-    if (!confirm('حذف هذا الهدف وكل خطواته؟')) return
+    if (!confirm(t('goals.delete') + '?')) return
     persist(goals.filter((g) => g.id !== goalId))
   }
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">أهدافك</h1>
-        <p className="text-ink/50 mt-1 text-sm">حدد هدفًا كبيرًا، وأنا أكسّره لك لخطوات صغيرة قابلة للتنفيذ.</p>
+        <h1 className="text-2xl font-bold brand">{t('goals.title')}</h1>
+        <p className="text-muted mt-1 text-sm">{t('goals.subtitle')}</p>
       </div>
 
       <form onSubmit={addGoal} className="card p-5 space-y-3">
         <div>
-          <label className="label">الهدف</label>
+          <label className="label">{t('goals.goalLabel')}</label>
           <input
             className="input"
-            placeholder="مثال: تحسين نومي، إنهاء مشروعي، بناء عادة الرياضة"
+            placeholder={t('goals.goalPlaceholder')}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div>
-          <label className="label">لماذا يهمك هذا الهدف؟ (اختياري)</label>
+          <label className="label">{t('goals.whyLabel')}</label>
           <input className="input" value={why} onChange={(e) => setWhy(e.target.value)} />
         </div>
         <button type="submit" className="btn-primary" disabled={!title.trim() || loading}>
-          {loading ? 'جارٍ التخطيط…' : 'أضف الهدف'}
+          {loading ? t('goals.planning') : t('goals.add')}
         </button>
-        {fallbackNotice && (
-          <p className="text-xs text-clay-500">
-            لا يوجد مفتاح API مفعّل، فاقترحت خطوات عامة. لتفصيل أدق أضف مفتاحك من الإعدادات.
-          </p>
-        )}
+        {fallbackNotice && <p className="text-xs text-warn">{t('goals.fallbackNotice')}</p>}
       </form>
 
       <div className="space-y-4">
@@ -92,21 +90,21 @@ export default function GoalsPage() {
             <div key={goal.id} className="card p-5">
               <div className="flex items-start justify-between gap-3 mb-1">
                 <div>
-                  <h3 className="font-semibold text-sage-700">{goal.title}</h3>
-                  {goal.why && <p className="text-xs text-ink/40 mt-0.5">{goal.why}</p>}
+                  <h3 className="font-semibold text-accent">{goal.title}</h3>
+                  {goal.why && <p className="text-xs text-muted mt-0.5">{goal.why}</p>}
                 </div>
                 <button
                   type="button"
-                  className="text-ink/30 hover:text-clay-500 text-sm"
+                  className="text-muted hover:text-warn text-sm"
                   onClick={() => deleteGoal(goal.id)}
                 >
-                  حذف
+                  {t('goals.delete')}
                 </button>
               </div>
 
-              <div className="h-1.5 rounded-full bg-sage-50 mt-3 mb-3 overflow-hidden">
+              <div className="h-1.5 rounded-full bg-accentSoft mt-3 mb-3 overflow-hidden">
                 <div
-                  className="h-full bg-sage-500 transition-all"
+                  className="h-full bg-accent transition-all"
                   style={{ width: `${goal.steps.length ? (doneCount / goal.steps.length) * 100 : 0}%` }}
                 />
               </div>
@@ -117,15 +115,15 @@ export default function GoalsPage() {
                     <button
                       type="button"
                       onClick={() => toggleStep(goal.id, step.id)}
-                      className={`w-full text-right flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition-colors ${
+                      className={`w-full text-start flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition-colors ${
                         step.done
-                          ? 'border-sage-200 bg-sage-50 text-ink/40 line-through'
-                          : 'border-black/10 hover:bg-black/5'
+                          ? 'border-accent/30 bg-accentSoft text-muted line-through'
+                          : 'border-border hover:bg-surfaceMuted'
                       }`}
                     >
                       <span
                         className={`h-4 w-4 rounded-full border-2 flex-shrink-0 ${
-                          step.done ? 'bg-sage-500 border-sage-500' : 'border-black/20'
+                          step.done ? 'bg-accent border-accent' : 'border-border'
                         }`}
                       />
                       {step.text}
@@ -136,7 +134,7 @@ export default function GoalsPage() {
             </div>
           )
         })}
-        {goals.length === 0 && <div className="text-center text-ink/40 py-10">لا أهداف بعد. أضف أول هدف لك أعلاه.</div>}
+        {goals.length === 0 && <div className="text-center text-muted py-10">{t('goals.empty')}</div>}
       </div>
     </div>
   )

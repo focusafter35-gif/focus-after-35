@@ -1,23 +1,27 @@
 import { NavLink, Outlet } from 'react-router-dom'
-
-const links = [
-  { to: '/', label: 'اليوم', end: true },
-  { to: '/goals', label: 'الأهداف' },
-  { to: '/plan', label: 'الخطة' },
-  { to: '/research', label: 'ابحث' },
-  { to: '/settings', label: 'الإعدادات' },
-]
+import { useLanguage } from '../i18n/LanguageContext.jsx'
+import LanguageSwitcher from './LanguageSwitcher.jsx'
 
 export default function Layout() {
+  const { t } = useLanguage()
+
+  const links = [
+    { to: '/', label: t('nav.today'), end: true },
+    { to: '/goals', label: t('nav.goals') },
+    { to: '/plan', label: t('nav.plan') },
+    { to: '/research', label: t('nav.research') },
+    { to: '/settings', label: t('nav.settings') },
+  ]
+
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b border-black/5 bg-white/70 backdrop-blur sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-          <NavLink to="/" className="flex items-center gap-2 font-bold text-sage-700 text-lg">
-            <span className="inline-block h-7 w-7 rounded-full bg-sage-600" />
+      <header className="border-b border-border bg-surface/80 backdrop-blur sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+          <NavLink to="/" className="flex items-center gap-2 font-bold text-accent text-lg brand">
+            <span className="inline-block h-7 w-7 rounded-full bg-accent" />
             RhythmAI
           </NavLink>
-          <nav className="flex gap-1">
+          <nav className="flex gap-1 flex-wrap">
             {links.map((l) => (
               <NavLink
                 key={l.to}
@@ -25,7 +29,7 @@ export default function Layout() {
                 end={l.end}
                 className={({ isActive }) =>
                   `px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                    isActive ? 'bg-sage-100 text-sage-700' : 'text-ink/60 hover:bg-black/5'
+                    isActive ? 'bg-accentSoft text-accent' : 'text-muted hover:bg-surfaceMuted'
                   }`
                 }
               >
@@ -33,14 +37,13 @@ export default function Layout() {
               </NavLink>
             ))}
           </nav>
+          <LanguageSwitcher compact />
         </div>
       </header>
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
         <Outlet />
       </main>
-      <footer className="text-center text-xs text-ink/40 py-6">
-        بياناتك تبقى في متصفحك فقط. RhythmAI لا يقدّم استشارات طبية.
-      </footer>
+      <footer className="text-center text-xs text-muted py-6">{t('common.tagline')}</footer>
     </div>
   )
 }

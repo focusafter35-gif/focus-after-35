@@ -1,17 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ---- Luxury theme tokens (R G B, space-separated for Tailwind opacity syntax) ---- */
+
+:root,
+:root[data-theme='platinum-pearl'] {
+  --color-bg: 246 247 249;
+  --color-surface: 255 255 255;
+  --color-surface-muted: 237 239 242;
+  --color-ink: 30 33 38;
+  --color-muted: 111 117 128;
+  --color-border: 220 223 229;
+  --color-accent: 51 65 92;
+  --color-accent-soft: 228 232 238;
+  --color-accent-ink: 255 255 255;
+  --color-gold: 156 152 140;
+  --color-warn: 178 68 68;
+  --color-warn-soft: 250 227 227;
+}
+
+:root[data-theme='emerald-marble'] {
+  --color-bg: 250 248 244;
+  --color-surface: 255 255 255;
+  --color-surface-muted: 243 240 233;
+  --color-ink: 26 36 33;
+  --color-muted: 107 117 108;
+  --color-border: 223 217 204;
+  --color-accent: 15 92 74;
+  --color-accent-soft: 224 238 232;
+  --color-accent-ink: 255 255 255;
+  --color-gold: 176 141 87;
+  --color-warn: 176 82 55;
+  --color-warn-soft: 250 231 220;
+}
+
+:root[data-theme='midnight-gold'] {
+  --color-bg: 12 12 14;
+  --color-surface: 20 19 22;
+  --color-surface-muted: 30 29 33;
+  --color-ink: 237 233 225;
+  --color-muted: 158 152 143;
+  --color-border: 63 60 56;
+  --color-accent: 197 160 89;
+  --color-accent-soft: 40 34 20;
+  --color-accent-ink: 20 16 8;
+  --color-gold: 212 175 90;
+  --color-warn: 224 140 96;
+  --color-warn-soft: 46 30 22;
+}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  @apply bg-cloud text-ink antialiased;
+  @apply bg-bg text-ink antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.brand {
+  font-family: 'Playfair Display', 'Amiri', Georgia, serif;
 }
 
 .card {
-  @apply bg-white border border-sage-100 rounded-xl2 shadow-sm;
+  @apply bg-surface border border-border rounded-xl2 shadow-lux;
 }
 
 .btn {
@@ -19,21 +74,25 @@ body {
 }
 
 .btn-primary {
-  @apply btn bg-sage-600 text-white hover:bg-sage-700;
+  @apply btn bg-accent text-accentInk hover:opacity-90;
 }
 
 .btn-secondary {
-  @apply btn bg-sage-50 text-sage-700 hover:bg-sage-100 border border-sage-200;
+  @apply btn bg-accentSoft text-accent border border-border hover:opacity-90;
 }
 
 .btn-ghost {
-  @apply btn text-ink/70 hover:bg-black/5;
+  @apply btn text-muted hover:bg-surfaceMuted;
+}
+
+.btn-warn {
+  @apply btn bg-warn text-white hover:opacity-90;
 }
 
 .input {
-  @apply w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 outline-none focus:border-sage-400 focus:ring-2 focus:ring-sage-100;
+  @apply w-full rounded-xl border border-border bg-surface px-4 py-2.5 outline-none text-ink placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accentSoft;
 }
 
 .label {
-  @apply block text-sm font-medium text-ink/70 mb-1.5;
+  @apply block text-sm font-medium text-muted mb-1.5;
 }

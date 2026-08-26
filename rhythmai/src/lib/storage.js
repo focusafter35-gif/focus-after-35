@@ -42,7 +42,8 @@ export const storage = {
   getTasks: () => read(KEYS.tasks, []),
   setTasks: (tasks) => write(KEYS.tasks, tasks),
 
-  getSettings: () => read(KEYS.settings, { apiKey: '', tone: 'gentle', notifications: false }),
+  getSettings: () =>
+    read(KEYS.settings, { apiKey: '', tone: 'gentle', notifications: false, language: 'en', theme: 'platinum-pearl' }),
   setSettings: (settings) => write(KEYS.settings, settings),
 
   getHistory: () => read(KEYS.history, []),

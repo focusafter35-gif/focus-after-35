@@ -1,26 +1,41 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { storage } from '../lib/storage.js'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
+import LanguageSwitcher from '../components/LanguageSwitcher.jsx'
 
-const STEPS = [
-  { key: 'name', label: 'اسمك', placeholder: 'كيف تحب أن أناديك؟', type: 'text' },
-  { key: 'goals', label: 'أهدافك', placeholder: 'مثال: النوم أفضل، إنجاز مشروعي، تمرين 3 مرات أسبوعيًا', type: 'textarea' },
-  { key: 'routine', label: 'روتينك اليومي الحالي', placeholder: 'صف يومك المعتاد باختصار', type: 'textarea' },
-  { key: 'work', label: 'عملك أو دراستك', placeholder: 'طبيعة عملك وساعاته', type: 'textarea' },
-  {
-    key: 'healthNotes',
-    label: 'ملاحظات صحية عامة (اختياري)',
-    placeholder: 'أي شيء تريدني أن أراعيه — بدون تفاصيل طبية دقيقة',
-    type: 'textarea',
-    optional: true,
-  },
-  { key: 'tone', label: 'كيف تحب أن أذكّرك؟', type: 'choice', options: ['لطيفة وهادئة', 'مباشرة ومختصرة', 'محفزة وداعمة'] },
-]
+function useSteps(t) {
+  return [
+    { key: 'name', labelKey: 'onboarding.name.label', placeholderKey: 'onboarding.name.placeholder', type: 'text' },
+    { key: 'goals', labelKey: 'onboarding.goals.label', placeholderKey: 'onboarding.goals.placeholder', type: 'textarea' },
+    { key: 'routine', labelKey: 'onboarding.routine.label', placeholderKey: 'onboarding.routine.placeholder', type: 'textarea' },
+    { key: 'work', labelKey: 'onboarding.work.label', placeholderKey: 'onboarding.work.placeholder', type: 'textarea' },
+    {
+      key: 'healthNotes',
+      labelKey: 'onboarding.health.label',
+      placeholderKey: 'onboarding.health.placeholder',
+      type: 'textarea',
+      optional: true,
+    },
+    {
+      key: 'tone',
+      labelKey: 'onboarding.tone.label',
+      type: 'choice',
+      options: [
+        { value: t('onboarding.tone.gentle'), key: 'gentle' },
+        { value: t('onboarding.tone.direct'), key: 'direct' },
+        { value: t('onboarding.tone.motivating'), key: 'motivating' },
+      ],
+    },
+  ]
+}
 
 export default function OnboardingPage() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
+  const STEPS = useSteps(t)
   const [step, setStep] = useState(0)
-  const [form, setForm] = useState({ tone: 'لطيفة وهادئة' })
+  const [form, setForm] = useState({ tone: t('onboarding.tone.gentle') })
 
   const current = STEPS[step]
   const isLast = step === STEPS.length - 1
@@ -40,29 +55,26 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-bg">
+      <div className="absolute top-4 end-4">
+        <LanguageSwitcher compact />
+      </div>
       <div className="w-full max-w-lg card p-8">
         <div className="flex items-center gap-2 mb-6">
-          <span className="inline-block h-8 w-8 rounded-full bg-sage-600" />
-          <h1 className="text-xl font-bold text-sage-700">RhythmAI</h1>
+          <span className="inline-block h-8 w-8 rounded-full bg-accent" />
+          <h1 className="text-xl font-bold text-accent brand">RhythmAI</h1>
         </div>
 
-        {step === 0 && (
-          <p className="text-ink/60 mb-6 text-sm leading-relaxed">
-            قبل أن نبدأ، أحتاج أن أتعرف عليك. كل ما تخبرني به يُحفظ على جهازك فقط، ولن أفعل شيئًا بدون موافقتك.
-          </p>
-        )}
+        {step === 0 && <p className="text-muted mb-6 text-sm leading-relaxed">{t('onboarding.intro')}</p>}
 
-        <div className="mb-2 text-xs text-ink/40">
-          خطوة {step + 1} من {STEPS.length}
-        </div>
-        <label className="label">{current.label}</label>
+        <div className="mb-2 text-xs text-muted">{t('onboarding.stepOf', { current: step + 1, total: STEPS.length })}</div>
+        <label className="label">{t(current.labelKey)}</label>
 
         {current.type === 'text' && (
           <input
             autoFocus
             className="input"
-            placeholder={current.placeholder}
+            placeholder={t(current.placeholderKey)}
             value={form[current.key] || ''}
             onChange={(e) => update(e.target.value)}
           />
@@ -73,7 +85,7 @@ export default function OnboardingPage() {
             autoFocus
             rows={4}
             className="input"
-            placeholder={current.placeholder}
+            placeholder={t(current.placeholderKey)}
             value={form[current.key] || ''}
             onChange={(e) => update(e.target.value)}
           />
@@ -83,16 +95,16 @@ export default function OnboardingPage() {
           <div className="flex flex-col gap-2">
             {current.options.map((opt) => (
               <button
-                key={opt}
+                key={opt.key}
                 type="button"
-                onClick={() => update(opt)}
-                className={`text-right rounded-xl border px-4 py-3 transition-colors ${
-                  form[current.key] === opt
-                    ? 'border-sage-500 bg-sage-50 text-sage-700'
-                    : 'border-black/10 hover:bg-black/5'
+                onClick={() => update(opt.value)}
+                className={`text-start rounded-xl border px-4 py-3 transition-colors ${
+                  form[current.key] === opt.value
+                    ? 'border-accent bg-accentSoft text-accent'
+                    : 'border-border hover:bg-surfaceMuted'
                 }`}
               >
-                {opt}
+                {opt.value}
               </button>
             ))}
           </div>
@@ -105,10 +117,10 @@ export default function OnboardingPage() {
             disabled={step === 0}
             onClick={() => setStep((s) => Math.max(0, s - 1))}
           >
-            رجوع
+            {t('onboarding.back')}
           </button>
           <button type="button" className="btn-primary" disabled={!canProceed} onClick={next}>
-            {isLast ? 'ابدأ' : 'التالي'}
+            {isLast ? t('onboarding.start') : t('onboarding.next')}
           </button>
         </div>
       </div>

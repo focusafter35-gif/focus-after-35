@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { storage } from '../lib/storage.js'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
+import LanguageSwitcher from '../components/LanguageSwitcher.jsx'
+import ThemeSwitcher from '../components/ThemeSwitcher.jsx'
 
 export default function SettingsPage() {
+  const { t } = useLanguage()
   const [settings, setSettings] = useState(() => storage.getSettings())
   const [profile, setProfile] = useState(() => storage.getProfile())
   const [saved, setSaved] = useState(false)
@@ -25,7 +29,7 @@ export default function SettingsPage() {
   }
 
   function clearData() {
-    if (!confirm('سيتم حذف كل بياناتك (ملفك الشخصي، خطتك، سجل بحثك) من هذا المتصفح نهائيًا. متأكد؟')) return
+    if (!confirm(t('settings.deleteConfirm'))) return
     storage.clearAll()
     window.location.href = '/welcome'
   }
@@ -33,14 +37,24 @@ export default function SettingsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">الإعدادات</h1>
-        <p className="text-ink/50 mt-1 text-sm">كل شيء هنا يُحفظ في متصفحك فقط.</p>
+        <h1 className="text-2xl font-bold brand">{t('settings.title')}</h1>
+        <p className="text-muted mt-1 text-sm">{t('settings.subtitle')}</p>
       </div>
 
       <section className="card p-6 space-y-4">
-        <h2 className="font-semibold">الذكاء الاصطناعي</h2>
+        <h2 className="font-semibold">{t('settings.languageSection')}</h2>
+        <LanguageSwitcher />
+      </section>
+
+      <section className="card p-6 space-y-4">
+        <h2 className="font-semibold">{t('settings.themeSection')}</h2>
+        <ThemeSwitcher />
+      </section>
+
+      <section className="card p-6 space-y-4">
+        <h2 className="font-semibold">{t('settings.aiSection')}</h2>
         <div>
-          <label className="label">مفتاح Anthropic API</label>
+          <label className="label">{t('settings.apiKeyLabel')}</label>
           <input
             type="password"
             className="input"
@@ -48,19 +62,16 @@ export default function SettingsPage() {
             value={settings.apiKey || ''}
             onChange={(e) => setSettings((s) => ({ ...s, apiKey: e.target.value }))}
           />
-          <p className="text-xs text-ink/40 mt-1.5">
-            يُرسل هذا المفتاح من متصفحك مباشرة إلى Anthropic فقط عند طلب خطة أو بحث. لا يمر عبر أي خادم تابع لنا لأنه لا يوجد خادم أصلاً.
-            بدون مفتاح، سيستخدم RhythmAI اقتراحات عامة مبسطة.
-          </p>
+          <p className="text-xs text-muted mt-1.5">{t('settings.apiKeyHelp')}</p>
         </div>
       </section>
 
       <section className="card p-6 space-y-4">
-        <h2 className="font-semibold">ملفك الشخصي</h2>
+        <h2 className="font-semibold">{t('settings.profileSection')}</h2>
         {profile && (
           <>
             <div>
-              <label className="label">الاسم</label>
+              <label className="label">{t('settings.nameLabel')}</label>
               <input
                 className="input"
                 value={profile.name || ''}
@@ -68,7 +79,7 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="label">الأهداف</label>
+              <label className="label">{t('settings.goalsLabel')}</label>
               <textarea
                 rows={3}
                 className="input"
@@ -81,20 +92,18 @@ export default function SettingsPage() {
       </section>
 
       <button type="button" className="btn-primary" onClick={save}>
-        {saved ? 'تم الحفظ ✓' : 'حفظ'}
+        {saved ? t('settings.saved') : t('settings.save')}
       </button>
 
       <section className="card p-6 space-y-3">
-        <h2 className="font-semibold">بياناتك وخصوصيتك</h2>
-        <p className="text-sm text-ink/50">
-          RhythmAI لا يملك خادمًا يخزّن بياناتك. كل شيء — ملفك، خطتك، سجل بحثك — موجود فقط في هذا المتصفح على هذا الجهاز.
-        </p>
+        <h2 className="font-semibold">{t('settings.dataSection')}</h2>
+        <p className="text-sm text-muted">{t('settings.dataBody')}</p>
         <div className="flex gap-3">
           <button type="button" className="btn-secondary" onClick={exportData}>
-            تصدير بياناتي
+            {t('settings.export')}
           </button>
-          <button type="button" className="btn-ghost text-clay-500" onClick={clearData}>
-            حذف كل بياناتي
+          <button type="button" className="btn-ghost text-warn" onClick={clearData}>
+            {t('settings.deleteAll')}
           </button>
         </div>
       </section>

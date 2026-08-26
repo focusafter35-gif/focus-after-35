@@ -1,31 +1,44 @@
 /** @type {import('tailwindcss').Config} */
+function withOpacity(variable) {
+  return ({ opacityValue }) =>
+    opacityValue === undefined ? `rgb(var(${variable}))` : `rgb(var(${variable}) / ${opacityValue})`
+}
+
 export default {
+  darkMode: ['selector', '[data-theme="midnight-gold"]'],
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
-        ink: '#1f2430',
-        cloud: '#f6f4ef',
-        sage: {
-          50: '#f2f7f3',
-          100: '#dcece0',
-          200: '#b8d8c1',
-          300: '#8fbf9d',
-          400: '#66a67a',
-          500: '#4a8c60',
-          600: '#39704b',
-          700: '#2e5a3d',
-        },
-        clay: {
-          400: '#e3a374',
-          500: '#d6875a',
-        },
+        bg: withOpacity('--color-bg'),
+        surface: withOpacity('--color-surface'),
+        surfaceMuted: withOpacity('--color-surface-muted'),
+        ink: withOpacity('--color-ink'),
+        muted: withOpacity('--color-muted'),
+        border: withOpacity('--color-border'),
+        accent: withOpacity('--color-accent'),
+        accentSoft: withOpacity('--color-accent-soft'),
+        accentInk: withOpacity('--color-accent-ink'),
+        gold: withOpacity('--color-gold'),
+        warn: withOpacity('--color-warn'),
+        warnSoft: withOpacity('--color-warn-soft'),
       },
       fontFamily: {
-        sans: ['"IBM Plex Sans Arabic"', '"Segoe UI"', 'system-ui', 'sans-serif'],
+        display: ['"Playfair Display"', '"Amiri"', 'Georgia', 'serif'],
+        sans: [
+          '"Inter"',
+          '"Noto Sans Arabic"',
+          '"Noto Sans SC"',
+          'system-ui',
+          '-apple-system',
+          'sans-serif',
+        ],
       },
       borderRadius: {
         xl2: '1.25rem',
+      },
+      boxShadow: {
+        lux: '0 1px 2px rgb(var(--color-ink) / 0.04), 0 8px 24px -8px rgb(var(--color-ink) / 0.12)',
       },
     },
   },
