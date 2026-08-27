@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { storage } from '../lib/storage.js'
+import { db } from '../lib/db.js'
+import { storage as local } from '../lib/storage.js'
+import { supabaseConfigured } from '../lib/supabaseClient.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx'
 
@@ -36,6 +38,24 @@ export default function OnboardingPage() {
   const STEPS = useSteps(t)
   const [step, setStep] = useState(0)
   const [form, setForm] = useState({ tone: t('onboarding.tone.gentle') })
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
+
+  // Anyone who used the local-only version before signing up gets offered a
+  // one-time import instead of re-entering everything by hand.
+  const [importPrompt, setImportPrompt] = useState(() => supabaseConfigured && !!local.getProfile())
+  const [importing, setImporting] = useState(false)
+
+  async function doImport() {
+    setImporting(true)
+    try {
+      await db.importFromLocal()
+      navigate('/')
+    } catch {
+      setImporting(false)
+      setError(t('auth.genericError'))
+    }
+  }
 
   const current = STEPS[step]
   const isLast = step === STEPS.length - 1
@@ -45,13 +65,52 @@ export default function OnboardingPage() {
     setForm((f) => ({ ...f, [current.key]: value }))
   }
 
-  function next() {
+  async function next() {
     if (isLast) {
-      storage.setProfile({ ...form, createdAt: new Date().toISOString() })
-      navigate('/')
+      setSaving(true)
+      setError('')
+      try {
+        await db.setProfile({ ...form, createdAt: new Date().toISOString() })
+        navigate('/')
+      } catch {
+        setSaving(false)
+        setError(t('auth.genericError'))
+      }
       return
     }
     setStep((s) => s + 1)
+  }
+
+  if (importPrompt) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4 bg-bg">
+        <div className="absolute top-4 end-4">
+          <LanguageSwitcher compact />
+        </div>
+        <div className="w-full max-w-sm card p-8 space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-8 w-8 rounded-full bg-accent" />
+            <h1 className="text-xl font-bold text-accent brand">RhythmAI</h1>
+          </div>
+          <h2 className="text-lg font-semibold">{t('import.title')}</h2>
+          <p className="text-sm text-muted">{t('import.body')}</p>
+          {error && <p className="text-sm text-warn">{error}</p>}
+          <div className="flex gap-3">
+            <button type="button" className="btn-primary flex-1 justify-center" onClick={doImport} disabled={importing}>
+              {t('import.confirm')}
+            </button>
+            <button
+              type="button"
+              className="btn-ghost flex-1 justify-center"
+              onClick={() => setImportPrompt(false)}
+              disabled={importing}
+            >
+              {t('import.skip')}
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -110,16 +169,18 @@ export default function OnboardingPage() {
           </div>
         )}
 
+        {error && <p className="text-sm text-warn mt-3">{error}</p>}
+
         <div className="flex items-center justify-between mt-8">
           <button
             type="button"
             className="btn-ghost"
-            disabled={step === 0}
+            disabled={step === 0 || saving}
             onClick={() => setStep((s) => Math.max(0, s - 1))}
           >
             {t('onboarding.back')}
           </button>
-          <button type="button" className="btn-primary" disabled={!canProceed} onClick={next}>
+          <button type="button" className="btn-primary" disabled={!canProceed || saving} onClick={next}>
             {isLast ? t('onboarding.start') : t('onboarding.next')}
           </button>
         </div>

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { storage } from '../lib/storage.js'
+import { useEffect, useState } from 'react'
+import { db } from '../lib/db.js'
 import { generateWeeklyPlan } from '../lib/ai.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import { weekdayNames } from '../lib/dates.js'
@@ -7,10 +7,24 @@ import { weekdayNames } from '../lib/dates.js'
 export default function PlanPage() {
   const { t, lang } = useLanguage()
   const dayLabels = weekdayNames(lang)
-  const [profile] = useState(() => storage.getProfile())
-  const [draft, setDraft] = useState(() => storage.getPlan())
+  const [pageLoading, setPageLoading] = useState(true)
+  const [profile, setProfile] = useState(null)
+  const [draft, setDraft] = useState(null)
   const [loading, setLoading] = useState(false)
   const [fallbackNotice, setFallbackNotice] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([db.getProfile(), db.getPlan()]).then(([p, plan]) => {
+      if (cancelled) return
+      setProfile(p)
+      setDraft(plan)
+      setPageLoading(false)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   async function regenerate() {
     setLoading(true)
@@ -48,9 +62,11 @@ export default function PlanPage() {
 
   function approve() {
     const cleaned = { days: draft.days.map((d) => ({ ...d, tasks: d.tasks.filter((t2) => t2.trim()) })) }
-    storage.setPlan(cleaned)
     setDraft(cleaned)
+    db.setPlan(cleaned).catch(() => {})
   }
+
+  if (pageLoading) return <div className="text-center text-muted py-16">…</div>
 
   return (
     <div className="space-y-6">

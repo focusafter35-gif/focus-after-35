@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { storage } from '../lib/storage.js'
+import { useEffect, useState } from 'react'
+import { db } from '../lib/db.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import { dateFromKey } from '../lib/dates.js'
 import { urgencyStatus, sortProjects } from '../lib/projects.js'
@@ -10,14 +10,28 @@ function uid() {
 
 export default function WorkPage() {
   const { t, lang } = useLanguage()
-  const [projects, setProjects] = useState(() => storage.getProjects())
+  const [loading, setLoading] = useState(true)
+  const [projects, setProjects] = useState([])
   const [title, setTitle] = useState('')
   const [deadline, setDeadline] = useState('')
   const [priority, setPriority] = useState('medium')
 
+  useEffect(() => {
+    let cancelled = false
+    db.getProjects().then((p) => {
+      if (!cancelled) {
+        setProjects(p)
+        setLoading(false)
+      }
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   function persist(next) {
     setProjects(next)
-    storage.setProjects(next)
+    db.setProjects(next).catch(() => {})
   }
 
   function addProject(e) {
@@ -68,6 +82,8 @@ export default function WorkPage() {
   }
 
   const sorted = sortProjects(projects)
+
+  if (loading) return <div className="text-center text-muted py-16">…</div>
 
   return (
     <div className="space-y-6">

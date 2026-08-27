@@ -177,6 +177,26 @@ const en = {
   'travel.item1': '10-minute no-equipment workout (bodyweight squats, push-ups, stretching)',
   'travel.item2': 'Stay hydrated — drink water regularly, especially when flying',
   'travel.item3': 'Keep a light, consistent sleep schedule despite the time change',
+
+  'auth.signUpTitle': 'Create your account',
+  'auth.signInTitle': 'Welcome back',
+  'auth.emailLabel': 'Email',
+  'auth.passwordLabel': 'Password',
+  'auth.signUpButton': 'Sign Up',
+  'auth.signInButton': 'Sign In',
+  'auth.switchToSignIn': 'Already have an account? Sign in',
+  'auth.switchToSignUp': "Don't have an account? Sign up",
+  'auth.checkEmail': 'Check your email to confirm your account, then sign in.',
+  'auth.genericError': 'Something went wrong. Please try again.',
+  'auth.signOut': 'Sign Out',
+  'auth.signedInAs': 'Signed in as {email}',
+
+  'import.title': 'Import your local data?',
+  'import.body':
+    'We found data from a previous session on this device (profile, plan, goals...). Import it into your new account?',
+  'import.confirm': 'Import',
+  'import.skip': 'Skip',
+  'import.done': 'Imported successfully.',
 }
 
 const ar = {
@@ -345,6 +365,25 @@ const ar = {
   'travel.item1': 'تمرين 10 دقائق بدون معدات (قرفصاء، ضغط، تمدد)',
   'travel.item2': 'حافظ على ترطيب جسمك — اشرب الماء بانتظام، خاصة أثناء الطيران',
   'travel.item3': 'حافظ على جدول نوم خفيف ومنتظم رغم فرق التوقيت',
+
+  'auth.signUpTitle': 'أنشئ حسابك',
+  'auth.signInTitle': 'مرحبًا بعودتك',
+  'auth.emailLabel': 'البريد الإلكتروني',
+  'auth.passwordLabel': 'كلمة المرور',
+  'auth.signUpButton': 'إنشاء حساب',
+  'auth.signInButton': 'تسجيل الدخول',
+  'auth.switchToSignIn': 'لديك حساب بالفعل؟ سجّل الدخول',
+  'auth.switchToSignUp': 'ليس لديك حساب؟ أنشئ واحدًا',
+  'auth.checkEmail': 'تحقق من بريدك الإلكتروني لتأكيد حسابك، ثم سجّل الدخول.',
+  'auth.genericError': 'حدث خطأ ما. حاول مرة أخرى.',
+  'auth.signOut': 'تسجيل الخروج',
+  'auth.signedInAs': 'مسجّل الدخول باسم {email}',
+
+  'import.title': 'استيراد بياناتك المحلية؟',
+  'import.body': 'وجدنا بيانات من جلسة سابقة على هذا الجهاز (ملفك، خطتك، أهدافك...). هل تريد استيرادها إلى حسابك الجديد؟',
+  'import.confirm': 'استيراد',
+  'import.skip': 'تخطّ',
+  'import.done': 'تم الاستيراد بنجاح.',
 }
 
 const fr = {
@@ -526,6 +565,26 @@ const fr = {
   'travel.item1': 'Séance de 10 minutes sans équipement (squats, pompes, étirements)',
   'travel.item2': "Restez hydraté(e) — buvez de l'eau régulièrement, surtout en avion",
   'travel.item3': 'Gardez un rythme de sommeil léger et régulier malgré le décalage horaire',
+
+  'auth.signUpTitle': 'Créez votre compte',
+  'auth.signInTitle': 'Content de vous revoir',
+  'auth.emailLabel': 'E-mail',
+  'auth.passwordLabel': 'Mot de passe',
+  'auth.signUpButton': "S'inscrire",
+  'auth.signInButton': 'Se connecter',
+  'auth.switchToSignIn': 'Vous avez déjà un compte ? Connectez-vous',
+  'auth.switchToSignUp': 'Pas encore de compte ? Inscrivez-vous',
+  'auth.checkEmail': 'Vérifiez votre e-mail pour confirmer votre compte, puis connectez-vous.',
+  'auth.genericError': "Une erreur s'est produite. Veuillez réessayer.",
+  'auth.signOut': 'Se déconnecter',
+  'auth.signedInAs': 'Connecté en tant que {email}',
+
+  'import.title': 'Importer vos données locales ?',
+  'import.body':
+    "Nous avons trouvé des données d'une session précédente sur cet appareil (profil, plan, objectifs...). Les importer dans votre nouveau compte ?",
+  'import.confirm': 'Importer',
+  'import.skip': 'Ignorer',
+  'import.done': 'Importation réussie.',
 }
 
 const es = {
@@ -707,6 +766,26 @@ const es = {
   'travel.item1': 'Rutina de 10 minutos sin equipo (sentadillas, flexiones, estiramientos)',
   'travel.item2': 'Manténgase hidratado/a — beba agua con regularidad, especialmente al volar',
   'travel.item3': 'Mantenga un horario de sueño ligero y constante a pesar del cambio horario',
+
+  'auth.signUpTitle': 'Cree su cuenta',
+  'auth.signInTitle': 'Bienvenido/a de nuevo',
+  'auth.emailLabel': 'Correo electrónico',
+  'auth.passwordLabel': 'Contraseña',
+  'auth.signUpButton': 'Registrarse',
+  'auth.signInButton': 'Iniciar sesión',
+  'auth.switchToSignIn': '¿Ya tiene una cuenta? Inicie sesión',
+  'auth.switchToSignUp': '¿No tiene una cuenta? Regístrese',
+  'auth.checkEmail': 'Revise su correo para confirmar su cuenta y luego inicie sesión.',
+  'auth.genericError': 'Algo salió mal. Inténtelo de nuevo.',
+  'auth.signOut': 'Cerrar sesión',
+  'auth.signedInAs': 'Sesión iniciada como {email}',
+
+  'import.title': '¿Importar sus datos locales?',
+  'import.body':
+    'Encontramos datos de una sesión anterior en este dispositivo (perfil, plan, objetivos...). ¿Desea importarlos a su nueva cuenta?',
+  'import.confirm': 'Importar',
+  'import.skip': 'Omitir',
+  'import.done': 'Importación exitosa.',
 }
 
 const zh = {
@@ -876,6 +955,25 @@ const zh = {
   'travel.item1': '10分钟无器械锻炼（徒手深蹲、俯卧撑、拉伸）',
   'travel.item2': '保持水分——定时喝水，尤其是在飞行途中',
   'travel.item3': '尽管时差变化，也要保持轻松规律的睡眠时间',
+
+  'auth.signUpTitle': '创建您的账户',
+  'auth.signInTitle': '欢迎回来',
+  'auth.emailLabel': '电子邮箱',
+  'auth.passwordLabel': '密码',
+  'auth.signUpButton': '注册',
+  'auth.signInButton': '登录',
+  'auth.switchToSignIn': '已有账户？登录',
+  'auth.switchToSignUp': '还没有账户？注册',
+  'auth.checkEmail': '请查收邮箱以确认您的账户，然后登录。',
+  'auth.genericError': '出现问题，请重试。',
+  'auth.signOut': '退出登录',
+  'auth.signedInAs': '已登录：{email}',
+
+  'import.title': '导入您的本地数据？',
+  'import.body': '我们在此设备上发现了之前会话的数据（个人资料、计划、目标等）。是否将其导入您的新账户？',
+  'import.confirm': '导入',
+  'import.skip': '跳过',
+  'import.done': '导入成功。',
 }
 
 const ru = {
@@ -1050,6 +1148,26 @@ const ru = {
   'travel.item1': '10-минутная тренировка без инвентаря (приседания, отжимания, растяжка)',
   'travel.item2': 'Пейте достаточно воды — особенно во время перелёта',
   'travel.item3': 'Старайтесь придерживаться лёгкого, стабильного режима сна, несмотря на смену часовых поясов',
+
+  'auth.signUpTitle': 'Создайте аккаунт',
+  'auth.signInTitle': 'С возвращением',
+  'auth.emailLabel': 'Электронная почта',
+  'auth.passwordLabel': 'Пароль',
+  'auth.signUpButton': 'Зарегистрироваться',
+  'auth.signInButton': 'Войти',
+  'auth.switchToSignIn': 'Уже есть аккаунт? Войти',
+  'auth.switchToSignUp': 'Нет аккаунта? Зарегистрируйтесь',
+  'auth.checkEmail': 'Проверьте почту, чтобы подтвердить аккаунт, затем войдите.',
+  'auth.genericError': 'Что-то пошло не так. Попробуйте снова.',
+  'auth.signOut': 'Выйти',
+  'auth.signedInAs': 'Вы вошли как {email}',
+
+  'import.title': 'Импортировать локальные данные?',
+  'import.body':
+    'Мы нашли данные из предыдущей сессии на этом устройстве (профиль, план, цели...). Импортировать их в новый аккаунт?',
+  'import.confirm': 'Импортировать',
+  'import.skip': 'Пропустить',
+  'import.done': 'Импорт выполнен успешно.',
 }
 
 export const translations = { en, ar, fr, es, zh, ru }

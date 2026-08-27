@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { storage } from '../lib/storage.js'
+import { useEffect, useState } from 'react'
+import { db } from '../lib/db.js'
 import { breakdownGoal } from '../lib/ai.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 
@@ -9,22 +9,36 @@ function uid() {
 
 export default function GoalsPage() {
   const { t, lang } = useLanguage()
-  const [profile] = useState(() => storage.getProfile())
-  const [goals, setGoals] = useState(() => storage.getGoals())
+  const [loading, setLoading] = useState(true)
+  const [profile, setProfile] = useState(null)
+  const [goals, setGoals] = useState([])
   const [title, setTitle] = useState('')
   const [why, setWhy] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [fallbackNotice, setFallbackNotice] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([db.getProfile(), db.getGoals()]).then(([p, g]) => {
+      if (cancelled) return
+      setProfile(p)
+      setGoals(g)
+      setLoading(false)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   function persist(next) {
     setGoals(next)
-    storage.setGoals(next)
+    db.setGoals(next).catch(() => {})
   }
 
   async function addGoal(e) {
     e.preventDefault()
-    if (!title.trim() || loading) return
-    setLoading(true)
+    if (!title.trim() || saving) return
+    setSaving(true)
     setFallbackNotice(false)
     const result = await breakdownGoal(title.trim(), why.trim(), profile, lang)
     const goal = {
@@ -38,7 +52,7 @@ export default function GoalsPage() {
     setFallbackNotice(result.source === 'fallback')
     setTitle('')
     setWhy('')
-    setLoading(false)
+    setSaving(false)
   }
 
   function toggleStep(goalId, stepId) {
@@ -55,6 +69,8 @@ export default function GoalsPage() {
     if (!confirm(t('goals.delete') + '?')) return
     persist(goals.filter((g) => g.id !== goalId))
   }
+
+  if (loading) return <div className="text-center text-muted py-16">…</div>
 
   return (
     <div className="space-y-6">
@@ -77,8 +93,8 @@ export default function GoalsPage() {
           <label className="label">{t('goals.whyLabel')}</label>
           <input className="input" value={why} onChange={(e) => setWhy(e.target.value)} />
         </div>
-        <button type="submit" className="btn-primary" disabled={!title.trim() || loading}>
-          {loading ? t('goals.planning') : t('goals.add')}
+        <button type="submit" className="btn-primary" disabled={!title.trim() || saving}>
+          {saving ? t('goals.planning') : t('goals.add')}
         </button>
         {fallbackNotice && <p className="text-xs text-warn">{t('goals.fallbackNotice')}</p>}
       </form>

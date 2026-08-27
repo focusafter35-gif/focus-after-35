@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { storage } from '../lib/storage.js'
+import { db } from '../lib/db.js'
 import { todayKey, todayWeekdayName } from '../lib/dates.js'
 import { mostUrgentTask } from '../lib/projects.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
@@ -12,20 +12,52 @@ const TRAVEL_ITEM_KEYS = ['travel.item1', 'travel.item2', 'travel.item3']
 export default function DashboardPage() {
   const { t, lang } = useLanguage()
   const key = todayKey()
-  const [profile] = useState(() => storage.getProfile())
-  const [plan] = useState(() => storage.getPlan())
-  const [goals] = useState(() => storage.getGoals())
-  const [projects, setProjects] = useState(() => storage.getProjects())
-  const [travelMode] = useState(() => !!storage.getSettings().travelMode)
-  const [done, setDone] = useState(() => storage.getCompletedToday(key))
-  const [energy, setEnergy] = useState(() => storage.getEnergyLog()[key] || null)
-  const [crisisActive, setCrisisActive] = useState(() => !!storage.getCrisisLog()[key])
-  const [eveningEntry, setEveningEntry] = useState(() => storage.getEveningLog().find((e) => e.date === key))
-  const urgentWork = useMemo(() => mostUrgentTask(projects), [projects])
+
+  const [loading, setLoading] = useState(true)
+  const [profile, setProfile] = useState(null)
+  const [plan, setPlan] = useState(null)
+  const [goals, setGoals] = useState([])
+  const [projects, setProjects] = useState([])
+  const [travelMode, setTravelMode] = useState(false)
+  const [done, setDone] = useState([])
+  const [energy, setEnergy] = useState(null)
+  const [crisisActive, setCrisisActive] = useState(false)
+  const [eveningEntry, setEveningEntry] = useState(null)
+  const [recentEvenings, setRecentEvenings] = useState([])
 
   useEffect(() => {
-    storage.setCompletedToday(key, done)
-  }, [key, done])
+    let cancelled = false
+    Promise.all([
+      db.getProfile(),
+      db.getPlan(),
+      db.getGoals(),
+      db.getProjects(),
+      db.getTravelMode(),
+      db.getCompletedToday(key),
+      db.getEnergyLog(),
+      db.getCrisisLog(),
+      db.getEveningLog(),
+    ]).then(([profileR, planR, goalsR, projectsR, travelR, doneR, energyLogR, crisisLogR, eveningLogR]) => {
+      if (cancelled) return
+      setProfile(profileR)
+      setPlan(planR)
+      setGoals(goalsR)
+      setProjects(projectsR)
+      setTravelMode(travelR)
+      setDone(doneR)
+      setEnergy(energyLogR[key] || null)
+      setCrisisActive(!!crisisLogR[key])
+      setEveningEntry(eveningLogR.find((e) => e.date === key) || null)
+      setRecentEvenings(eveningLogR.filter((e) => e.date !== key).slice(0, 3))
+      setLoading(false)
+    })
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const urgentWork = useMemo(() => mostUrgentTask(projects), [projects])
 
   const todayName = todayWeekdayName(lang)
   // plan.days is always ordered Sunday..Saturday (see ai.js normalizeDays/fallbackPlan),
@@ -51,18 +83,22 @@ export default function DashboardPage() {
   }, [energy, goals])
 
   function toggle(task) {
-    setDone((d) => (d.includes(task) ? d.filter((t2) => t2 !== task) : [...d, task]))
+    setDone((d) => {
+      const next = d.includes(task) ? d.filter((t2) => t2 !== task) : [...d, task]
+      db.setCompletedToday(key, next).catch(() => {})
+      return next
+    })
   }
 
   function selectEnergy(level) {
-    storage.setTodayEnergy(key, level)
     setEnergy(level)
+    db.setTodayEnergy(key, level).catch(() => {})
   }
 
   function toggleCrisis() {
     const next = !crisisActive
-    storage.setCrisisToday(key, next)
     setCrisisActive(next)
+    db.setCrisisToday(key, next).catch(() => {})
   }
 
   function toggleUrgentWorkTask() {
@@ -73,15 +109,15 @@ export default function DashboardPage() {
         : { ...p, tasks: p.tasks.map((tk) => (tk.id === urgentWork.task.id ? { ...tk, done: !tk.done } : tk)) }
     )
     setProjects(next)
-    storage.setProjects(next)
+    db.setProjects(next).catch(() => {})
   }
 
   function saveEvening(answer) {
-    storage.setTodayEveningEntry(key, answer)
     setEveningEntry({ date: key, answer, at: new Date().toISOString() })
+    db.setTodayEveningEntry(key, answer).catch(() => {})
   }
 
-  const recentEvenings = storage.getEveningLog().filter((e) => e.date !== key).slice(0, 3)
+  if (loading) return <div className="text-center text-muted py-16">…</div>
 
   return (
     <div className="space-y-6">

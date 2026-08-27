@@ -1,24 +1,48 @@
-import { useState } from 'react'
-import { storage } from '../lib/storage.js'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { db } from '../lib/db.js'
+import { storage as local } from '../lib/storage.js'
+import { useAuth } from '../auth/AuthContext.jsx'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx'
 import ThemeSwitcher from '../components/ThemeSwitcher.jsx'
 
 export default function SettingsPage() {
   const { t } = useLanguage()
-  const [settings, setSettings] = useState(() => storage.getSettings())
-  const [profile, setProfile] = useState(() => storage.getProfile())
+  const { configured, user, signOut } = useAuth()
+  const navigate = useNavigate()
+
+  const [loading, setLoading] = useState(true)
+  const [apiKey, setApiKey] = useState('')
+  const [travelMode, setTravelMode] = useState(false)
+  const [profile, setProfile] = useState(null)
   const [saved, setSaved] = useState(false)
 
-  function save() {
-    storage.setSettings(settings)
-    if (profile) storage.setProfile(profile)
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([db.getProfile(), db.getTravelMode()]).then(([p, tm]) => {
+      if (cancelled) return
+      setProfile(p)
+      setTravelMode(tm)
+      // The Anthropic key stays a per-browser setting until AI calls are
+      // proxied through a server-side function — see supabase/README.md.
+      setApiKey(local.getSettings().apiKey || '')
+      setLoading(false)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  async function save() {
+    local.setSettings({ ...local.getSettings(), apiKey })
+    await Promise.all([db.setTravelMode(travelMode), profile ? db.setProfile(profile) : Promise.resolve()])
     setSaved(true)
     setTimeout(() => setSaved(false), 1500)
   }
 
-  function exportData() {
-    const data = storage.exportAll()
+  async function exportData() {
+    const data = await db.exportAll()
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -28,12 +52,23 @@ export default function SettingsPage() {
     URL.revokeObjectURL(url)
   }
 
-  function clearData() {
+  async function clearData() {
     if (!confirm(t('settings.deleteConfirm'))) return
-    storage.clearAll()
-    window.location.hash = '#/welcome'
-    window.location.reload()
+    await db.clearAll()
+    if (configured) {
+      navigate('/login')
+    } else {
+      window.location.hash = '#/welcome'
+      window.location.reload()
+    }
   }
+
+  async function handleSignOut() {
+    await signOut()
+    navigate('/login')
+  }
+
+  if (loading) return <div className="text-center text-muted py-16">…</div>
 
   return (
     <div className="space-y-8">
@@ -41,6 +76,15 @@ export default function SettingsPage() {
         <h1 className="text-2xl font-bold brand">{t('settings.title')}</h1>
         <p className="text-muted mt-1 text-sm">{t('settings.subtitle')}</p>
       </div>
+
+      {configured && user && (
+        <section className="card p-6 flex items-center justify-between gap-3">
+          <p className="text-sm text-muted">{t('auth.signedInAs', { email: user.email })}</p>
+          <button type="button" className="btn-secondary whitespace-nowrap" onClick={handleSignOut}>
+            {t('auth.signOut')}
+          </button>
+        </section>
+      )}
 
       <section className="card p-6 space-y-4">
         <h2 className="font-semibold">{t('settings.languageSection')}</h2>
@@ -58,8 +102,8 @@ export default function SettingsPage() {
           <input
             type="checkbox"
             className="mt-1 h-4 w-4"
-            checked={!!settings.travelMode}
-            onChange={(e) => setSettings((s) => ({ ...s, travelMode: e.target.checked }))}
+            checked={travelMode}
+            onChange={(e) => setTravelMode(e.target.checked)}
           />
           <span className="text-sm text-muted">{t('travel.toggleHelp')}</span>
         </label>
@@ -73,8 +117,8 @@ export default function SettingsPage() {
             type="password"
             className="input"
             placeholder="sk-ant-..."
-            value={settings.apiKey || ''}
-            onChange={(e) => setSettings((s) => ({ ...s, apiKey: e.target.value }))}
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
           />
           <p className="text-xs text-muted mt-1.5">{t('settings.apiKeyHelp')}</p>
         </div>

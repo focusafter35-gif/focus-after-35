@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { storage } from '../lib/storage.js'
+import { db } from '../lib/db.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import { weekdayNamesShort } from '../lib/dates.js'
 import { computeWeekSummary, detectPatterns, mostCommonEnergy } from '../lib/insights.js'
@@ -9,36 +9,42 @@ const ENERGY_EMOJI = { low: '🌧️', medium: '⛅', high: '☀️' }
 
 export default function ReportPage() {
   const { t, lang } = useLanguage()
-  const [profile] = useState(() => storage.getProfile())
-  const [plan] = useState(() => storage.getPlan())
-  const [goals] = useState(() => storage.getGoals())
-
-  const summary = computeWeekSummary(
-    {
-      plan,
-      completionLog: storage.getCompletionLog(),
-      energyLog: storage.getEnergyLog(),
-      eveningLog: storage.getEveningLog(),
-    },
-    lang
-  )
-  const patterns = detectPatterns(
-    {
-      energyLog: storage.getEnergyLog(),
-      completionLog: storage.getCompletionLog(),
-      eveningLog: storage.getEveningLog(),
-      goals,
-    },
-    lang,
-    t
-  )
-
-  const shortLabels = weekdayNamesShort(lang)
-  const ratePct = summary.completionRate != null ? Math.round(summary.completionRate * 100) : null
-  const topEnergy = mostCommonEnergy(summary.energyCounts)
+  const [pageLoading, setPageLoading] = useState(true)
+  const [profile, setProfile] = useState(null)
+  const [plan, setPlan] = useState(null)
+  const [goals, setGoals] = useState([])
+  const [completionLog, setCompletionLog] = useState({})
+  const [energyLog, setEnergyLog] = useState({})
+  const [eveningLog, setEveningLog] = useState([])
 
   const [narrative, setNarrative] = useState(null)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([db.getProfile(), db.getPlan(), db.getGoals(), db.getCompletionLog(), db.getEnergyLog(), db.getEveningLog()]).then(
+      ([p, pl, g, cl, el, evl]) => {
+        if (cancelled) return
+        setProfile(p)
+        setPlan(pl)
+        setGoals(g)
+        setCompletionLog(cl)
+        setEnergyLog(el)
+        setEveningLog(evl)
+        setPageLoading(false)
+      }
+    )
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const summary = pageLoading ? null : computeWeekSummary({ plan, completionLog, energyLog, eveningLog }, lang)
+  const patterns = pageLoading ? [] : detectPatterns({ energyLog, completionLog, eveningLog, goals }, lang, t)
+
+  const shortLabels = weekdayNamesShort(lang)
+  const ratePct = summary?.completionRate != null ? Math.round(summary.completionRate * 100) : null
+  const topEnergy = summary ? mostCommonEnergy(summary.energyCounts) : null
 
   async function generate() {
     if (!plan) return
@@ -49,9 +55,11 @@ export default function ReportPage() {
   }
 
   useEffect(() => {
-    if (plan) generate()
+    if (!pageLoading && plan) generate()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [pageLoading])
+
+  if (pageLoading) return <div className="text-center text-muted py-16">…</div>
 
   const fallbackText = t('report.fallbackSummary', {
     rate: ratePct ?? 0,

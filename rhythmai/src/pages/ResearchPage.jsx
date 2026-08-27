@@ -1,15 +1,29 @@
-import { useState } from 'react'
-import { storage } from '../lib/storage.js'
+import { useEffect, useState } from 'react'
+import { db } from '../lib/db.js'
 import { askResearch } from '../lib/ai.js'
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import DisclaimerBanner from '../components/DisclaimerBanner.jsx'
 
 export default function ResearchPage() {
   const { t, lang } = useLanguage()
-  const [profile] = useState(() => storage.getProfile())
+  const [pageLoading, setPageLoading] = useState(true)
+  const [profile, setProfile] = useState(null)
   const [question, setQuestion] = useState('')
   const [loading, setLoading] = useState(false)
-  const [history, setHistory] = useState(() => storage.getHistory())
+  const [history, setHistory] = useState([])
+
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([db.getProfile(), db.getHistory()]).then(([p, h]) => {
+      if (cancelled) return
+      setProfile(p)
+      setHistory(h)
+      setPageLoading(false)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   async function submit(e) {
     e.preventDefault()
@@ -24,11 +38,13 @@ export default function ResearchPage() {
           ? t('research.aiUnavailableNotice')
           : t('research.genericFallback')
     const entry = { question: q, answer, flaggedMedical: result.flaggedMedical, at: new Date().toISOString() }
-    storage.addHistoryEntry(entry)
+    db.addHistoryEntry(entry).catch(() => {})
     setHistory((h) => [entry, ...h])
     setQuestion('')
     setLoading(false)
   }
+
+  if (pageLoading) return <div className="text-center text-muted py-16">…</div>
 
   return (
     <div className="space-y-6">

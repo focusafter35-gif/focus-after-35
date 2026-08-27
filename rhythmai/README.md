@@ -20,6 +20,25 @@ npm run dev
 
 Opens at `http://localhost:3001`.
 
+## Two modes: local-only vs. cloud accounts
+
+RhythmAI runs in one of two modes, decided automatically by whether a Supabase
+project is configured:
+
+- **Local-only (default, zero setup)**: no `.env.local` → no login, no
+  network calls for data. Everything lives in this browser's `localStorage`,
+  exactly as the original MVP worked.
+- **Cloud accounts**: set up Supabase (see `supabase/README.md`), copy
+  `.env.local.example` to `.env.local` and fill in the two values, restart
+  the dev server. The app now requires sign-up/sign-in, and every page reads
+  and writes through `src/lib/db.js` to Postgres instead of `localStorage`,
+  scoped per-user by row-level security. Anyone who used the local-only
+  version before creating an account is offered a one-time import of their
+  local data during onboarding.
+
+Every page calls the same `db.*` API either way — `src/lib/db.js` is the only
+place that knows which mode is active.
+
 ## Languages
 
 RhythmAI ships in the six official languages of the United Nations: English (default), Arabic, French, Spanish, Chinese (Simplified), and Russian. The language can be changed from the switcher in the top bar, on the welcome screen, or in Settings — it also drives the language the AI responds in, and switches the layout direction (RTL for Arabic).
@@ -55,10 +74,14 @@ src/
     themes.js                # the 3 theme definitions
     ThemeContext.jsx         # useTheme() hook: theme, setTheme
   lib/
-    storage.js   # local persistence layer (localStorage)
+    storage.js        # local persistence layer (localStorage) — the local-mode backend
+    supabaseClient.js  # Supabase client, or null when not configured
+    db.js              # the API every page calls; dispatches to storage.js or Supabase
     ai.js        # Claude calls + localized fallback content when no key is set
     safety.js    # multilingual medical-question detection + safety system prompt
     dates.js     # localized weekday names via Intl
+  auth/
+    AuthContext.jsx  # useAuth(): session, user, signUp/signIn/signOut
   pages/
     OnboardingPage.jsx   # first-time profile setup
     DashboardPage.jsx    # today's tasks, energy check-in, crisis mode, evening check-in
@@ -90,3 +113,5 @@ src/
 - Research does not yet query external web sources; it relies on the model's own knowledge.
 - A weekly plan generated in one language keeps its day labels in that language; switching languages afterward does not retroactively relabel an already-approved plan.
 - The weekly report's completion chart reflects the *current* plan only — if the plan is replaced mid-week, earlier days in the chart are shown against the new plan's task list for that weekday.
+- The Anthropic API key is still entered per-browser in Settings (bring-your-own-key) even in cloud mode — it is not yet proxied through a server-side function, so real per-plan usage metering and billing aren't possible yet. This is the next required piece before a paid tier can exist (see `supabase/README.md`).
+- Account deletion in Settings clears the account's data but not the Supabase Auth login itself (that needs a server-side admin action).
