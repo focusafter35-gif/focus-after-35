@@ -20,6 +20,24 @@ npm run dev
 
 Opens at `http://localhost:3001`.
 
+## Deploying (to actually test cloud accounts)
+
+The dev sandbox used to build this app cannot reach `supabase.co` (its
+network policy blocks it), so the Supabase integration could not be tested
+end-to-end from inside that session. It needs to be tested from a normal
+environment. The fastest way, with no local installs:
+
+1. Go to [vercel.com](https://vercel.com) and sign in (GitHub login works).
+2. **Add New Project** → import `focusafter35-gif/focus-after-35`.
+3. Under **Root Directory**, pick `rhythmai` (the app isn't at the repo root).
+4. Under **Environment Variables**, add:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+5. **Deploy**. Vercel auto-detects the Vite build.
+
+That gives a real public URL where sign-up, sign-in, and cross-device sync
+can be tested for real, and doubles as a live preview to share.
+
 ## Two modes: local-only vs. cloud accounts
 
 RhythmAI runs in one of two modes, decided automatically by whether a Supabase
